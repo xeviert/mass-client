@@ -1,0 +1,27 @@
+h2 {
+  padding: 0 0 0 15px;
+}
+
+.page-body {
+  margin: clamp(.5em, 5vw, 8em);
+}
+
+@media all and (min-width: 600px) {
+  
+  h1 {
+    font-size: 60px;
+    margin: .3em 0 .4em 0;
+  }
+  
+  h2 {
+    font-size: 55px;
+  }
+  
+  div {
+    font-size: 33px;
+  }
+  .page-body {
+    width: 70%;
+    margin: 0 auto;
+  }
+}
