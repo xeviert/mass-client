@@ -1,3 +1,4 @@
+# MASS Client - Mutual Aid & Shared Services
 # Client Boilerplate With React
 
 Modified create-react-app to setup:
