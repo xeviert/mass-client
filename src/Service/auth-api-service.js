@@ -18,13 +18,13 @@ const AuthApiService = {
             )
     },
 
-    postLogin({ phoneNumber, password }) {
+    postLogin({ phone_number, password }) {
         return fetch(`${config.API_ENDPOINT}/auth/token`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
             },
-            body: JSON.stringify({ phoneNumber, password }),
+            body: JSON.stringify({ phone_number, password }),
         })
             .then(res =>
                 (!res.ok)

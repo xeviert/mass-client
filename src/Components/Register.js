@@ -1,62 +1,70 @@
-import React, { Component } from 'react'
-import AuthApiService from '../Service/auth-api-service'
-import PhoneInput from 'react-phone-number-input'
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import AuthApiService from "../Service/auth-api-service";
+import PhoneInput from "react-phone-number-input";
+import "./Styling/RegisterLogin.css";
 
 export default class Register extends Component {
-    state = { error: null }
+  state = { error: null };
 
-    handleSubmit = (e) => {
-        e.preventDefault()
-        const { phoneNumber, password, confirmPassword } = e.target
-        this.setState({ error: null })
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { phone_number, password, confirmPassword } = e.target;
+    this.setState({ error: null });
 
-        if (password.value !== confirmPassword.value) {
-            return this.setState({ error: 'Passwords do not match' })
-        }
-
-        AuthApiService.postNewUser({
-            phone_number: phoneNumber.value,
-            password: password.value,
-        })
-            .then(res => res.json())
-            .then(() => {
-                this.props.history.push('/')
-            })
-            .catch((error) => {
-                this.setState({ error: error })
-            })
+    if (password.value !== confirmPassword.value) {
+      return this.setState({ error: "Passwords do not match" });
     }
 
-    render() {
-        return (
-            <div>
-                <div className='page-body'>                    
-                <h2>Register</h2> 
+    AuthApiService.postNewUser({
+      phone_number: phone_number.value,
+      password: password.value,
+    })
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .catch((res) => {
+        this.setState({ error: res.error });
+      });
+  };
 
-                <form onSubmit={this.handleSubmit}>
-                    {this.state.error && <p className='error'>{this.state.error}</p>}
+  setValue = () => {};
 
-                    <label>Phone Number:</label>
-                    <PhoneInput placeholder="Enter phone number" name='phoneNumber' defaultCountry="US" required />
-                    <label>Password:</label>
-                    <input type='password' name='password' required />
-                    <label>Confirm Password:</label>                    
-                    <input type='password' name='confirmPassword' required />
+  render() {
+    return (
+      <div>
+        <div className='page-body'>
+          <h2>Register</h2>
 
-                    <button type='submit'>
-                        Register
-                    </button>
-                </form>
+          <div className='register-login-body'>
+            <form onSubmit={this.handleSubmit}>
+              {this.state.error && <p className='error'>{this.state.error}</p>}
 
-                <div>
-                    <p>Already have an account?</p>
-                    <Link to='/login'>
-                        <p><em>Login</em></p>
-                    </Link>
-                </div>
+              <label>Phone Number:</label>
+              <PhoneInput
+                placeholder='Enter phone number'
+                name='phone_number'
+                defaultCountry='US'
+                onChange={this.setValue}
+                required
+              />
+              <label>Password:</label>
+              <input type='password' name='password' required />
+              <label>Confirm Password:</label>
+              <input type='password' name='confirmPassword' required />
 
-                </div>
+              <button type='submit'>Register</button>
+            </form>
+
+            <div id='already-have-account'>
+              Already have an account?
+              <Link to='/login'><br />
+                  <em>Login</em>
+              </Link>
             </div>
-        )
-    }
+          </div>
+        </div>
+      </div>
+    );
+  }
 }

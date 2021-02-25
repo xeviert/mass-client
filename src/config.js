@@ -1,4 +1,4 @@
 export default {
-    API_ENDPOINT: 'http://localhost:8000/api',
-    TOKEN_KEY: 'mutual-aid-shared-support-auth-token',
-}
+  API_ENDPOINT: "http://localhost:8000/api",
+  TOKEN_KEY: "mutual-aid-shared-support-auth-token",
+};

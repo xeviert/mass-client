@@ -1,127 +1,126 @@
-import React, { Component } from 'react'
-import AuthApiService from './Service/auth-api-service'
-import TokenService from './Service/token-service'
-import IdleService from './Service/idle-service'
+import React, { Component } from "react";
+import AuthApiService from "./Service/auth-api-service";
+import TokenService from "./Service/token-service";
+import IdleService from "./Service/idle-service";
 
 export const AppContext = React.createContext({
-    user: {},
-    error: null,
-    setError: () => {},
-    clearError: () => {},
-    setUser: () => {},
-    processLogin: () => {},
-    processLogout: () => {},
+  user: {},
+  error: null,
+  setError: () => {},
+  clearError: () => {},
+  setUser: () => {},
+  processLogin: () => {},
+  processLogout: () => {},
 });
 
-export default class AppProvider extends Component {
+export class AppProvider extends Component {
+  constructor(props) {
+    super(props);
+    const state = { user: {}, error: null };
 
-    constructor(props) {
-        super(props)
-        this.state ={ user: {}, error: null }
+    const jwtPayload = TokenService.parseAuthToken();
 
-        const jwtPayload = TokenService.parseAuthToken()
+    if (jwtPayload)
+      state.user = {
+        id: jwtPayload.user_id,
+        phone_number: jwtPayload.sub,
+      };
 
-        if (jwtPayload)
-          state.user = {
-            id: jwtPayload.user_id,
-            phoneNumber: jwtPayload.sub,
-          }
+    this.state = state;
+    IdleService.setIdleCallback(this.logoutBecauseIdle);
+  }
 
-        this.state = state;
-        IdleService.setIdleCallback(this.logoutBecauseIdle)
+  // static defaultProps = {
+  //     history: {
+  //         push: () => {},
+  //     }
+  // }
+
+  // handleLoginSuccess
+
+  componentDidMount() {
+    if (TokenService.hasAuthToken()) {
+      IdleService.registerIdleTimerResets();
+      TokenService.queueCallbackBeforeExpiry(() => {
+        this.fetchRefreshToken();
+      });
     }
+  }
 
-    // static defaultProps = {
-    //     history: {
-    //         push: () => {},
-    //     }
-    // }
+  componentWillUnmount() {
+    IdleService.unRegisterIdleResets();
+    TokenService.clearCallbackBeforeExpiry();
+  }
 
-    // handleLoginSuccess
+  setError = (error) => {
+    console.error(error);
+    this.setState({ error });
+  };
 
-    componentDidMount() {
-        if (TokenService.hasAuthToken()) {
-            IdleService.registerIdleTimerResets()
-            TokenService.queueCallbackBeforeExpiry(() => {
-                this.fetchRefreshToken()
-            })
-        }
-    }
+  clearError = () => {
+    this.setState({ error: null });
+  };
 
-    componentWillUnmount() {
-        IdleService.unRegisterIdleResets()
-        TokenService.clearCallbackBeforeExpiry()
-    }
+  setUser = (user) => {
+    this.setState({ user });
+  };
 
-    setError = error => {
-        console.error(error)
-        this.setState({ error })
-    }
+  processLogin = authToken => {
+    console.log('process login')
+    TokenService.saveAuthToken(authToken);
+    const jwtPayload = TokenService.parseAuthToken();
+    this.setUser({
+      id: jwtPayload.user_id,
+      phone_number: jwtPayload.sub,
+    });
+    IdleService.registerIdleTimerResets();
+    TokenService.queueCallbackBeforeExpiry(() => {
+      this.fetchRefreshToken();
+    });
+  };
 
-    clearError = () => {
-        this.setState({ error: null })
-    }
+  processLogout = () => {
+    TokenService.clearAuthToken();
+    TokenService.clearCallbackBeforeExpiry();
+    IdleService.unRegisterIdleResets();
+    this.setUser({});
+  };
 
-    setUser = user => {
-        this.setState({ user })
-    }
+  logoutBecauseIdle = () => {
+    TokenService.clearAuthToken();
+    TokenService.clearCallbackBeforeExpiry();
+    IdleService.unRegisterIdleResets();
+    this.setUser({ idle: true });
+  };
 
-    processLogin = authToken => {
-        TokenService.saveAuthToken(authToken)
-        const jwtPayload = TokenService.parseAuthToken()
-        this.setUser({
-            id: jwtPayload.user_id,
-            phoneNumber: jwtPayload.sub,
-        })
-        IdleService.registerIdleTimerResets()
+  fetchRefreshToken = () => {
+    AuthApiService.refreshToken()
+      .then((res) => {
+        TokenService.saveAuthToken(res.authToken);
         TokenService.queueCallbackBeforeExpiry(() => {
-            this.fetchRefreshToken()
-        })
-    }
+          this.fetchRefreshToken();
+        });
+      })
+      .catch((err) => {
+        this.setError(err);
+      });
+  };
 
-    processLogout = () => {
-        TokenService.clearAuthToken()
-        TokenService.clearCallbackBeforeExpiry()
-        IdleService.unRegisterIdleResets()
-        this.setUser({})
-    }
+  render() {
+    const value = {
+      user: this.state.user,
+      error: this.state.error,
+      setError: this.setError,
+      clearError: this.clearError,
+      setUser: this.setUser,
+      processLogin: this.processLogin,
+      processLogout: this.processLogout,
+    };
 
-    logoutBecauseIdle = () => {
-        TokenService.clearAuthToken()
-        TokenService.clearCallbackBeforeExpiry()
-        IdleService.unRegisterIdleResets()
-        this.setUser({ idle: true })
-    }
-
-    fetchRefreshToken = () => {
-        AuthApiService.refreshToken()
-            .then(res => {
-                TokenService.saveAuthToken(res.authToken)
-                TokenService.queueCallbackBeforeExpiry(() => {
-                    this.fetchRefreshToken()
-                })
-            })
-            .catch(err => {
-                this.setError(err)
-            })
-    }
-
-    render() {
-
-        const value = {
-            user: this.state.user,
-            error: this.state.error,
-            setError: this.setError,
-            clearError: this.clearError,
-            setUser: this.setUser,
-            processLogin: this.processLogin,
-            processLogout: this.processLogout,
-        }
-        
-        return (
-            <AppContext.Provider value={value}>
-                {this.props.children}
-            </AppContext.Provider>
-        )
-    }
+    return (
+      <AppContext.Provider value={value}>
+        {this.props.children}
+      </AppContext.Provider>
+    );
+  }
 }

@@ -1,0 +1,28 @@
+#home-body {
+  margin: 0 auto 5vh auto;
+  width: 85%;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin: 0.5vh 0;
+  justify-content: space-evenly;
+}
+
+.checkbox-btn {
+  width: 5vh;
+  margin: 0 2vh;
+}
+
+.item-text {
+  width: 35%;
+}
+
+.quantity {
+  width: 6vh;
+  height: 2vh;
+  font-size: 1.3vh;
+  margin: 0 0 0 0;
+  text-align: center;
+}
