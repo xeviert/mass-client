@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import config from "../config";
-import './Styling/Admin.css'
+import { AppContext } from '../AppContext'
+import "./Styling/Admin.css";
 
 export default class Admin extends Component {
+  static contextType = AppContext;
   constructor(props) {
     super(props);
     this.state = {
-      orders: []
+      orders: [],
     };
   }
 
@@ -37,13 +39,22 @@ export default class Admin extends Component {
           <h2>Wishlist Orders</h2>
 
           <div id='admin-page-body'>
-            {orders.map(order => (
-              <div className='single-order'>
-                <div className='order-attribute'>{order.phone_number}</div>
-                <div className='order-attribute'>{order.product}</div>
-                <div className='order-attribute'>{order.location}</div>
-              </div>
-            ))}
+            <table>
+              <tr>
+                <th>Order ID</th>
+                <th>Phone Number</th>
+                <th>Item</th>
+                <th>Location/Address</th>
+              </tr>
+              {orders.map((order) => (
+                <tr key={order.id}>
+                  <td>{order.order_id}</td>
+                  <td className='order-attribute-pn'>{order.phone_number}</td>
+                  <td className='order-attribute'>{order.product}</td>
+                  <td className='order-attribute-location'>{order.location}</td>
+                </tr>
+              ))}
+            </table>
           </div>
         </div>
       </div>

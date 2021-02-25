@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import {AppContext} from "../AppContext";
+import { AppContext } from "../AppContext";
 import TokenService from "../Service/token-service";
 
 import "./Styling/NavBar.css";
@@ -31,15 +31,27 @@ export default class NavBar extends Component {
     );
   }
 
-  userIsLoggedIn() {
-    return (
-      <div id='nav-links'>
+  findUserRole() {
+    const { user } = this.context;
+    if (user.role == "admin") {
+      return (
         <Link className='link' to='/admin'>
           Admin
         </Link>
+      );
+    } else {
+      return (
         <Link className='link' to='/'>
           Home
         </Link>
+      );
+    }
+  }
+
+  userIsLoggedIn() {
+    return (
+      <div id='nav-links'>
+        {this.findUserRole()}
         <Link className='link' to='/resources'>
           Resources
         </Link>

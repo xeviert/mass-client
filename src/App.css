@@ -3,10 +3,11 @@ h2 {
 }
 
 .page-body {
-  margin: clamp(.5em, 5vw, 8em);
+  margin: clamp( .1em, .5vw, 8em);
+  width: 80%;
 }
 
-@media all and (min-width: 600px) {
+/* @media all and (min-width: 600px) {
   
   h1 {
     font-size: 60px;
@@ -20,8 +21,8 @@ h2 {
   div {
     font-size: 33px;
   }
+
   .page-body {
-    width: 60%;
     margin: 0 auto;
   }
-}
+} */

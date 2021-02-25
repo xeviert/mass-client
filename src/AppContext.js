@@ -30,14 +30,6 @@ export class AppProvider extends Component {
     IdleService.setIdleCallback(this.logoutBecauseIdle);
   }
 
-  // static defaultProps = {
-  //     history: {
-  //         push: () => {},
-  //     }
-  // }
-
-  // handleLoginSuccess
-
   componentDidMount() {
     if (TokenService.hasAuthToken()) {
       IdleService.registerIdleTimerResets();
@@ -66,12 +58,12 @@ export class AppProvider extends Component {
   };
 
   processLogin = authToken => {
-    console.log('process login')
     TokenService.saveAuthToken(authToken);
     const jwtPayload = TokenService.parseAuthToken();
     this.setUser({
       id: jwtPayload.user_id,
       phone_number: jwtPayload.sub,
+      role: jwtPayload.role
     });
     IdleService.registerIdleTimerResets();
     TokenService.queueCallbackBeforeExpiry(() => {

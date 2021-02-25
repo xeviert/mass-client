@@ -3,6 +3,6 @@ import "./Styling/Footer.css";
 
 export default class Footer extends Component {
   render() {
-    return <footer>Footer</footer>;
+    return <footer>Mutual Aid & Shared Support</footer>;
   }
 }

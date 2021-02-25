@@ -1,5 +1,18 @@
-.single-order {
-  display: flex;
+table, th, td {
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+table {
+  width: 100%;
+}
+
+.order-attribute-pn {
+  text-align: center;
+}
+
+.order-attribute-location {
+  text-align: center;
 }
 
 .order-attribute {

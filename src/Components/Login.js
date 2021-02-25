@@ -26,12 +26,22 @@ export default class Login extends Component {
         phone_number.value = "";
         password.value = "";
         this.context.processLogin(res.authToken);
-        this.props.history.push("/");
+        this.pushUserDependingOnRole();
       })
       .catch((res) => {
         this.setState({ error: res.error });
       });
   };
+
+  pushUserDependingOnRole() {
+    const { user } = this.context;
+
+    if(user.role == 'admin') {
+      this.props.history.push("/admin");
+    } else {
+      this.props.history.push("/");
+    }
+  }
 
   setValue = (e) => this.setState({ phone_number: e.target.value })
 
@@ -40,7 +50,9 @@ export default class Login extends Component {
 
     return (
       <div>
-        <div className='page-body'>
+        <div 
+        // className='page-body'
+        >
           <h2>Login</h2>
 
           <div className='register-login-body'>
@@ -55,7 +67,7 @@ export default class Login extends Component {
               onChange={ (e) => this.setValue}
               required
             />
-            <label>Password:</label>
+            <label id='password-label'>Password:</label>
             <input type='password' name='password' required />
 
             <button type='submit'>Login</button>
