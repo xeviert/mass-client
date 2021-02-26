@@ -1,5 +1,9 @@
 .page-body-resources {
-  width: 95%;
+  width: min(1600px, calc(80% + 68px));
   margin: 0 auto;
-  margin-bottom: 20vh;
+  margin-bottom: 10vh;
+}
+
+.resource-sections {
+  word-wrap: break-word;
 }

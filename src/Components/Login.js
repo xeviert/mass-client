@@ -51,7 +51,7 @@ export default class Login extends Component {
     return (
       <div>
         <div 
-        // className='page-body'
+        className='page-body'
         >
           <h2>Login</h2>
 

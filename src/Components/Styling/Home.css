@@ -1,12 +1,18 @@
 #home-body {
   margin: 0 auto 8vh auto;
-  width: 97%;
+  width: min(1400px, calc(80% + 68px));
+}
+
+#location {
+  font-size: clamp(1.3rem, 2.2vw, 2.5rem);
+  text-align: center;
 }
 
 #location-input {
   margin: 2vh auto;
   height: 2.5vh;
   width: 60%;
+  font-size: clamp(1.3rem, 2.2vw, 2.5rem); 
 }
 
 .item {
@@ -22,20 +28,21 @@
 }
 
 .item-text {
-  width: 35%;
+  width: 50%;
+  font-size: clamp(1.3rem, 2.2vw, 2.5rem); 
 }
 
 .quantity {
   width: 6vh;
   height: 2.5vh;
-  font-size: 1.8vh;
+  font-size: clamp(1.3rem, 2.2vw, 2.5rem); 
   margin: 0 0 0 0;
   text-align: center;
 }
 
 #wishlist-sbt-btn {
   margin-top: 3vh;
-  width: 50%;
+  width: 45%;
   height: 5vh;
   font-size: clamp(1.3rem, 2.2vw, 2.5rem); 
 }

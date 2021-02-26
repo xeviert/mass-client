@@ -5,6 +5,11 @@ table, th, td {
 
 table {
   width: 100%;
+  margin-bottom: 8vh;
+}
+
+.order-attribute-id{
+  text-align: center;
 }
 
 .order-attribute-pn {
@@ -16,5 +21,4 @@ table {
 }
 
 .order-attribute {
-  margin: .5% 2%;
 }

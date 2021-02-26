@@ -1,5 +1,5 @@
 .register-login-body {
-  width: 65%;
+  width: 85%;
   margin: 0 auto;
 }
 
@@ -33,7 +33,7 @@ form {
 }
 
 .PhoneInputInput {
-  width: 100%;
+  width: 99%;
   height: 3vh;
   font-size: 25px;
 }
@@ -52,10 +52,10 @@ input {
 }
 
 button {
-  width: 30%;
-  height: 3vh;
-  font-size: 25px;
-  margin: 1vh auto;
+  margin: 2vh auto 0 auto;
+  width: 40%;
+  height: 5vh;
+  font-size: clamp(1.3rem, 2.2vw, 2.5rem); 
   border-radius: 12px;
 }
 

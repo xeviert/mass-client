@@ -48,7 +48,7 @@ export default class Admin extends Component {
               </tr>
               {orders.map((order) => (
                 <tr key={order.id}>
-                  <td>{order.order_id}</td>
+                  <td className='order-attribute-id'>{order.order_id}</td>
                   <td className='order-attribute-pn'>{order.phone_number}</td>
                   <td className='order-attribute'>{order.product}</td>
                   <td className='order-attribute-location'>{order.location}</td>

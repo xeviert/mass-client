@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import config from '../config'
-import TokenService from '../Service/token-service'
+import config from "../config";
+import TokenService from "../Service/token-service";
 import "./Styling/Home.css";
 
 export default class Home extends Component {
   state = {
     order_items: {},
-    location: ''
+    location: "",
   };
 
   // handleChange(e) {
@@ -38,49 +38,57 @@ export default class Home extends Component {
     e.preventDefault();
     const order = {
       location: this.state.location,
-      order_items: this.state.order_items
-    }
+      order_items: this.state.order_items,
+    };
 
     fetch(`${config.API_ENDPOINT}/orders`, {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(order),
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
         authorization: `bearer ${TokenService.getAuthToken()}`,
-      }
+      },
     })
-    .then(res => res.json())
-    .then(() => {
-      this.setState({ 
-        location: '',
-        order_items: ''
+      .then((res) => res.json())
+      .then(() => {
+        alert(
+          "Thank you! Wishlist has been submitted. We will send out a text shortly to confirm when we will see you"
+        );
+        this.setState({
+          location: "",
+          order_items: {},
+        });
+        this.resetForm()
       })
-    })
-    .catch((e) => {
-      this.setState({ error: e.message })
-    })
+      .catch((e) => {
+        this.setState({ error: e.message });
+      });
   };
 
-  setLocationOnChange = (location) => {
-    this.setState({ location })
+  resetForm() {
+    const wishListForm = document.getElementById("wishlist-form");
+    wishListForm.reset();
   }
+
+  setLocationOnChange = (location) => {
+    this.setState({ location });
+  };
 
   render() {
     return (
       <div>
-        <div 
-        // className='page-body'
-        >
-          <h2>Wishlist</h2>
-          {/**
-           * Alert that says "thank you, wishlist has been submitted. We will send out a text to confirm when we will meet you"
-           */}
+        <div>
           <div id='home-body'>
-            <form onSubmit={(e) => this.handleSubmit(e)}>
-              <label>Location/Address:</label>
-              <input type='text' maxLength='50' id='location-input' 
-              onChange={(e) => this.setLocationOnChange(e.target.value)} required />
-              
+            <h2>Wishlist</h2>
+            <form onSubmit={(e) => this.handleSubmit(e)} id='wishlist-form'>
+              <label id='location'>Location/Address:</label>
+              <input
+                type='text'
+                maxLength='50'
+                id='location-input'
+                onChange={(e) => this.setLocationOnChange(e.target.value)}
+                required
+              />
 
               <label className='item'>
                 <input
@@ -216,7 +224,7 @@ export default class Home extends Component {
                   onChange={(e) => this.updateQuantityOfItem(9, e.target.value)}
                 />
               </label>
-                            
+
               <label className='item'>
                 <input
                   type='checkbox'
@@ -228,10 +236,12 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(10, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(10, e.target.value)
+                  }
                 />
               </label>
-                            
+
               <label className='item'>
                 <input
                   type='checkbox'
@@ -243,10 +253,12 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(11, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(11, e.target.value)
+                  }
                 />
               </label>
-                            
+
               <label className='item'>
                 <input
                   type='checkbox'
@@ -258,10 +270,12 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(12, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(12, e.target.value)
+                  }
                 />
               </label>
-                            
+
               <label className='item'>
                 <input
                   type='checkbox'
@@ -273,10 +287,12 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(13, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(13, e.target.value)
+                  }
                 />
               </label>
-                            
+
               <label className='item'>
                 <input
                   type='checkbox'
@@ -288,10 +304,12 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(14, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(14, e.target.value)
+                  }
                 />
               </label>
-                            
+
               <label className='item'>
                 <input
                   type='checkbox'
@@ -303,7 +321,9 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(15, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(15, e.target.value)
+                  }
                 />
               </label>
 
@@ -318,14 +338,15 @@ export default class Home extends Component {
                 <input
                   type='number'
                   className='quantity'
-                  onChange={(e) => this.updateQuantityOfItem(16, e.target.value)}
+                  onChange={(e) =>
+                    this.updateQuantityOfItem(16, e.target.value)
+                  }
                 />
               </label>
 
               <button type='submit' id='wishlist-sbt-btn'>
                 Submit List
               </button>
-
             </form>
           </div>
         </div>
