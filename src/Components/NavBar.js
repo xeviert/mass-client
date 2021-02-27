@@ -69,7 +69,8 @@ export default class NavBar extends Component {
     return (
       <nav id='nav-bar'>
         <div id='container-inside-nav'>
-          <h1>App Name</h1>
+          <h1 id='navbar-title'>MASS</h1>
+          <p id='navbar-full-name'>Mutual Aid & Shared Support</p>
           {TokenService.hasAuthToken()
             ? this.userIsLoggedIn()
             : this.userIsLoggedOut()}

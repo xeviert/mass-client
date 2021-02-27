@@ -1,5 +1,6 @@
 h2 {
   padding: 0 0 0 2vh;
+  color: #10d8b3;
 }
 
 .page-body {
@@ -7,22 +8,17 @@ h2 {
   width: min(2000px, calc(80% + 68px));
 }
 
-/* @media all and (min-width: 600px) {
-  
-  h1 {
-    font-size: 60px;
-    margin: .3em 0 .4em 0;
-  }
-  
-  h2 {
-    font-size: 55px;
-  }
-  
-  div {
-    font-size: 33px;
-  }
+a {
+  color: #0e7c68;
+}
 
-  .page-body {
-    margin: 0 auto;
+a:visited {
+  color: #0e7c68;
+}
+
+@media all and (min-width: 1000px) {
+
+  h2 {
+    padding: 0 0 0 18vh;
   }
-} */
+}

@@ -10,9 +10,11 @@
 
 #location-input {
   margin: 2vh auto;
-  height: 2.5vh;
+  height: 3vh;
   width: 60%;
-  font-size: clamp(1.3rem, 2.2vw, 2.5rem); 
+  font-size: clamp(1.1rem, 2vw, 2.2rem); 
+  border-radius: 12px;
+  border-width: .1px;
 }
 
 .item {

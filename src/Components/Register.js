@@ -42,7 +42,7 @@ export default class Register extends Component {
 
               <label>Phone Number:</label>
               <PhoneInput
-                placeholder='Enter phone number'
+                placeholder=' enter phone #'
                 name='phone_number'
                 defaultCountry='US'
                 onChange={this.setValue}
@@ -53,7 +53,7 @@ export default class Register extends Component {
               <label id='password-label'>Confirm Password:</label>
               <input type='password' name='confirmPassword' required />
 
-              <button type='submit'>Register</button>
+              <button type='submit'>register</button>
             </form>
 
             <div id='already-have-account'>
