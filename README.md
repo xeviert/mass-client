@@ -1,6 +1,6 @@
 # MASS Client - Mutual Aid & Shared Services
 
-## Live App :
+## Live App: https://mass-client.vercel.app
 
 ### Skills used for client:
 JavaScript, React, HTML5, CSS3
