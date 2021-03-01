@@ -58,8 +58,9 @@ export default class Register extends Component {
 
             <div id='already-have-account'>
               Already have an account?
-              <Link to='/login'><br />
-                  <em>Login</em>
+              <Link to='/login'>
+                <br />
+                <em>Login</em>
               </Link>
             </div>
           </div>

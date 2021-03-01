@@ -57,13 +57,13 @@ export class AppProvider extends Component {
     this.setState({ user });
   };
 
-  processLogin = authToken => {
+  processLogin = (authToken) => {
     TokenService.saveAuthToken(authToken);
     const jwtPayload = TokenService.parseAuthToken();
     this.setUser({
       id: jwtPayload.user_id,
       phone_number: jwtPayload.sub,
-      role: jwtPayload.role
+      role: jwtPayload.role,
     });
     IdleService.registerIdleTimerResets();
     TokenService.queueCallbackBeforeExpiry(() => {

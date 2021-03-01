@@ -1,6 +1,9 @@
-table, th, td {
+table,
+th,
+td {
   border: 1px solid black;
   margin: 0 auto;
+  font-size: clamp(1rem, 2vw, 2.2rem);
 }
 
 table {
@@ -8,7 +11,7 @@ table {
   margin-bottom: 8vh;
 }
 
-.order-attribute-id{
+.order-attribute-id {
   text-align: center;
 }
 

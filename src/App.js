@@ -8,7 +8,7 @@ import Footer from "./Components/Footer";
 import PrivateRoute from "./Components/PrivateRoute";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
-import Admin from './Components/Admin'
+import Admin from "./Components/Admin";
 
 import "./App.css";
 

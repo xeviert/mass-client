@@ -58,7 +58,7 @@ export default class Home extends Component {
           location: "",
           order_items: {},
         });
-        this.resetForm()
+        this.resetForm();
       })
       .catch((e) => {
         this.setState({ error: e.message });

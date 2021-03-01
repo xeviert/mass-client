@@ -33,7 +33,7 @@ export default class NavBar extends Component {
 
   findUserRole() {
     const { user } = this.context;
-    if (user.role == "admin") {
+    if (user.role === "admin") {
       return (
         <Link className='link' to='/admin'>
           Admin

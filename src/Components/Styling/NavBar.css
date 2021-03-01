@@ -1,44 +1,42 @@
 #nav-bar {
-    background-color: rgb(255, 255, 255);
-    padding: 1vh 0 4.5vh 2vh;
-    box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  background-color: rgb(255, 255, 255);
+  padding: 1vh 0 4.5vh 2vh;
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
 }
 
-#navbar-title{
-    margin: 0 0 0 0;
-    color: #1cd4b3;
-    font-size: 4vh;
+#navbar-title {
+  margin: 0 0 0 0;
+  color: #1cd4b3;
+  font-size: 4vh;
 }
 
 #navbar-full-name {
-    margin: 0 0 1vh 0;
-    padding: 0 0 0 2vh;
+  margin: 0 0 1vh 0;
+  padding: 0 0 0 2vh;
 }
 
 #nav-links {
-    float: right;
-    margin-bottom: 30px;
+  float: right;
+  margin-bottom: 30px;
 }
 
 .link {
-    margin: 0 15px 0 0;
-    font-size: 20px;
+  margin: 0 15px 0 0;
+  font-size: 20px;
 }
 
 @media all and (min-width: 800px) {
+  #nav-bar {
+    padding: 20px 13% 60px;
+  }
 
-    #nav-bar {
-        padding: 20px 13% 60px;
-        
-    }
+  .link {
+    margin: 0 1.5vh 0 0;
+    font-size: 30px;
+  }
 
-    .link {
-        margin: 0 1.5vh 0 0;
-        font-size: 30px;
-    }
-
-    #container-inside-nav {
-        width: 80%;
-        margin: 0 auto;
-    }
+  #container-inside-nav {
+    width: 80%;
+    margin: 0 auto;
+  }
 }
