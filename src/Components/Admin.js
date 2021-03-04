@@ -45,6 +45,7 @@ export default class Admin extends Component {
                 <th>Phone Number</th>
                 <th>Item</th>
                 <th>Location/Address</th>
+                <th>Qty.</th>
               </tr>
               {orders.map((order) => (
                 <tr key={order.id}>
@@ -52,6 +53,7 @@ export default class Admin extends Component {
                   <td className='order-attribute-pn'>{order.phone_number}</td>
                   <td className='order-attribute'>{order.product}</td>
                   <td className='order-attribute-location'>{order.location}</td>
+                  <td className='order-attribute-id' >{order.quantity}</td>
                 </tr>
               ))}
             </table>

@@ -81,16 +81,20 @@ export default class Home extends Component {
           <div id='home-body'>
             <h2>Wishlist</h2>
             <form onSubmit={(e) => this.handleSubmit(e)} id='wishlist-form'>
-              <label id='location'>Location/Address:</label>
-              <input
-                type='text'
-                maxLength='50'
-                id='location-input'
-                onChange={(e) => this.setLocationOnChange(e.target.value)}
-                required
-              />
+              <label id='location'>
+                Location/Address:
+                <br />
+                <input
+                  type='text'
+                  maxLength='50'
+                  id='location-input'
+                  onChange={(e) => this.setLocationOnChange(e.target.value)}
+                  required
+                />
+              </label>
 
-              <label className='item'>
+            <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -98,14 +102,22 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(1)}
                 />
                 <div className='item-text'>Snack Kit</div>
+              </label>
+
+              <label className='quantity-label-and-input'>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(1, e.target.value)}
-                />
+                  />
               </label>
+            </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -113,14 +125,22 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(2)}
                 />
                 <div className='item-text'>Socks and Underwear</div>
+                </label>
+
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(2, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -128,14 +148,21 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(3)}
                 />
                 <div className='item-text'>Walking Shoes</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(3, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -143,14 +170,21 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(4)}
                 />
                 <div className='item-text'>Pads/Tampons</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(4, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -158,14 +192,21 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(5)}
                 />
                 <div className='item-text'>First Aid Kit</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(5, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -173,14 +214,22 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(6)}
                 />
                 <div className='item-text'>Dental Care Kit</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(6, e.target.value)}
                 />
               </label>
+              </div>
+              
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -188,14 +237,21 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(7)}
                 />
                 <div className='item-text'>Deodorant and Soap</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(7, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -203,14 +259,21 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(8)}
                 />
                 <div className='item-text'>Earplugs</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(8, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -218,14 +281,21 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(9)}
                 />
                 <div className='item-text'>Face Mask, Sanitizer, Gloves</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) => this.updateQuantityOfItem(9, e.target.value)}
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -233,16 +303,23 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(10)}
                 />
                 <div className='item-text'>Blanket</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(10, e.target.value)
                   }
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -250,16 +327,23 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(11)}
                 />
                 <div className='item-text'>Diapers, Wipes, Baby Clothes</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(11, e.target.value)
                   }
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -267,16 +351,23 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(12)}
                 />
                 <div className='item-text'>Baby Formula</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(12, e.target.value)
                   }
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -284,16 +375,23 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(13)}
                 />
                 <div className='item-text'>School Supplies</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(13, e.target.value)
                   }
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -301,16 +399,23 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(14)}
                 />
                 <div className='item-text'>Notepad and Pens</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(14, e.target.value)
                   }
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -318,16 +423,23 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(15)}
                 />
                 <div className='item-text'>Hat, Mittens, Scarf</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(15, e.target.value)
                   }
                 />
               </label>
+              </div>
 
-              <label className='item'>
+              <div className='item'>
+              <label className='item-label'>
                 <input
                   type='checkbox'
                   className='checkbox-btn'
@@ -335,14 +447,20 @@ export default class Home extends Component {
                   onChange={() => this.toggleItemInList(16)}
                 />
                 <div className='item-text'>Sweater/Jacket</div>
+                </label>
+                <label>
+                <div className='quantity-label'>Quantity</div>
                 <input
                   type='number'
                   className='quantity'
+                  min='0'
+                  max='20'
                   onChange={(e) =>
                     this.updateQuantityOfItem(16, e.target.value)
                   }
                 />
               </label>
+              </div>
 
               <button type='submit' id='wishlist-sbt-btn'>
                 Submit List

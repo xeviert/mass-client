@@ -1,6 +1,7 @@
 #home-body {
   margin: 0 auto 8vh auto;
-  width: min(1400px, calc(80% + 68px));
+  width: min(1400px, calc(60% + 68px));
+
 }
 
 #location {
@@ -27,18 +28,32 @@
 .checkbox-btn {
   width: 2.5vh;
   margin: 0 0;
+  width: 30%;
 }
 
 .item-text {
-  width: 50%;
+  width: 40%;
   font-size: clamp(1.3rem, 2.2vw, 2.5rem);
+  flex-grow: 2;
+}
+
+.item-label {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quantity-label {
+  display: none;
+  font-size: clamp(.8rem, 1.8vw, 2rem);
 }
 
 .quantity {
-  width: 6vh;
-  height: 2.5vh;
+  width: 7vh;
+  height: 3.2vh;
   font-size: clamp(1.3rem, 2.2vw, 2.5rem);
-  margin: 0 0 0 0;
+  margin: 0;
   text-align: center;
 }
 
