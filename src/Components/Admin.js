@@ -13,31 +13,20 @@ export default class Admin extends Component {
   }
 
   componentDidMount() {
-    this.getAllOrders();
+    const { user } = this.context;
+    if (user.role === "admin") {
+      this.getAllOrders();
+    }
   }
 
-  getAllOrders() {
-    return fetch(`${config.API_ENDPOINT}/admin/orders`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((orders) => {
-        this.setState({ orders });
-      });
-  }
-
-  render() {
+  findUserRole()  {
+    const { user } = this.context;
     const { orders } = this.state;
-    return (
-      <div>
-        <div className='page-body'>
-          <h2>Wishlist Orders</h2>
 
+    if (user.role === "admin") {
+      return (
+        <div>
+          <h2>Wishlist Orders</h2>
           <div id='admin-page-body'>
             <table>
               <tr>
@@ -58,6 +47,35 @@ export default class Admin extends Component {
               ))}
             </table>
           </div>
+        </div>
+      );
+    } else {
+      return (
+        this.props.history.push("/")
+      );
+    }
+  }
+
+  getAllOrders() {
+    return fetch(`${config.API_ENDPOINT}/admin/orders`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((orders) => {
+        this.setState({ orders });
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className='page-body'>
+          {this.findUserRole()}
         </div>
       </div>
     );

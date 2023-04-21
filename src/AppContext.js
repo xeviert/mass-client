@@ -24,6 +24,7 @@ export class AppProvider extends Component {
       state.user = {
         id: jwtPayload.user_id,
         phone_number: jwtPayload.sub,
+        role: jwtPayload.role
       };
 
     this.state = state;
