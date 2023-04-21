@@ -1,5 +1,5 @@
 const config = {
-  API_ENDPOINT: "https://pacific-shelf-78351.herokuapp.com/api",
+  API_ENDPOINT: "http://localhost:8000/api",
   TOKEN_KEY: "mutual-aid-shared-support-auth-token",
 };
 

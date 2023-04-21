@@ -9,11 +9,11 @@ export default class Home extends Component {
     location: "",
   };
 
-  // handleChange(e) {
-  //   this.setState({
-  //     order_items: { ...this.state.order_items, [e.target.name]: e.target.value },
-  //   });
-  // }
+  handleChange(e) {
+    this.setState({
+      order_items: { ...this.state.order_items, [e.target.name]: e.target.value },
+    });
+  }
 
   toggleItemInList = (itemId) => {
     const { order_items } = this.state;
