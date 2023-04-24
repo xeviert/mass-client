@@ -1,5 +1,5 @@
 #landing-page-body {
-  width: 90%;
+  width: 70%;
   margin: 0 auto 8vh auto;
 }
 
@@ -10,17 +10,17 @@
 #our-commitments {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 }
 
 .commitment-item {
-  margin: 0.8vh 0.5vh 0.8vh 0.5vh;
-  padding: 2vh;
+  margin: 8px 10px 10px 8px;
+  padding: 20px;
   flex: 1;
-  font-size: clamp(.95rem, 1.8vw, 2rem);
+  font-size: clamp(12px, 16px, 20px);
   border: 2px solid #1ab99c;
-  border-width: 1vh;
+  border-width: 10px;
   background-color: #dadada88;
   font-weight: 500;
 }
@@ -32,7 +32,7 @@
   padding: 0 2vh 2vh 2vh;
   text-align: center;
   border-radius: 6px;
-  width: 90%;
+  width: 100%;
 }
 
 #user-functionality {
@@ -46,17 +46,17 @@
 
 @media all and (min-width: 750px) {
   #our-commitments {
-    width: 98%;
+    width: 100%;
     flex-direction: row;
   }
   .commitment-item {
-    margin: 0.8vh 0.7vh 0.8vh 0.7vh;
+    margin: 8px 10px 10px 8px;
   }
 
   #get-started-box {
     border-width: 0.4vh;
     padding: 0 2vh 2vh 2vh;
-    width: 70%;
+    width: 96%;
   }
 
   .gs-btn {

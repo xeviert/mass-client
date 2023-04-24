@@ -75,7 +75,7 @@ button {
   margin: 2vh auto 0 auto;
   width: 40%;
   height: 5vh;
-  font-size: clamp(1.3rem, 2.2vw, 2.5rem);
+  font-size: clamp(16px, 20px, 24px);
   border-radius: 14px;
   border: 2px solid #1ab99c;
   border-width: 0.4vh;

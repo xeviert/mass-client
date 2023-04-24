@@ -5,7 +5,7 @@
 }
 
 #location {
-  font-size: clamp(1.3rem, 2.2vw, 2.5rem);
+  font-size: clamp(14px, 18px, 22px);
   text-align: center;
 }
 
@@ -33,7 +33,7 @@
 
 .item-text {
   width: 40%;
-  font-size: clamp(1.3rem, 2.2vw, 2.5rem);
+  font-size: clamp(14px, 18px, 22px);
   flex-grow: 2;
 }
 

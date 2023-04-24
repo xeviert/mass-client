@@ -7,7 +7,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(246, 246, 246);
-  font-size: clamp(1rem, 2.2vw, 2.5rem);
+  font-size: clamp(12px, 16px, 20px);
 }
 
 code {

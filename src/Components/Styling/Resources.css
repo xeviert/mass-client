@@ -1,6 +1,6 @@
 .page-body-resources {
-  width: min(1600px, calc(80% + 68px));
-  font-size: clamp(1.3rem, 2.1vw, 2.3rem);
+  width: min(900px, calc(80% + 68px));
+  font-size: clamp(12px, 16px, 20px);
   margin: 0 auto;
   margin-bottom: 10vh;
 }
