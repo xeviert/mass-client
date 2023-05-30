@@ -6,7 +6,7 @@ import "./Styling/RegisterLogin.css";
 
 export default class Login extends Component {
   static defaultProps = {
-    onLoginSuccess: () => {},
+    onLoginSuccess: () => { },
   };
 
   static contextType = AppContext;

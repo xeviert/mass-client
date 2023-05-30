@@ -19,7 +19,7 @@ export default class Admin extends Component {
     }
   }
 
-  findUserRole()  {
+  findUserRole() {
     const { user } = this.context;
     const { orders } = this.state;
 

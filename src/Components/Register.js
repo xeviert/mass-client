@@ -28,7 +28,7 @@ export default class Register extends Component {
       });
   };
 
-  setValue = () => {};
+  setValue = () => { };
 
   render() {
     return (
