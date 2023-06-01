@@ -76,50 +76,50 @@ export default class Home extends Component {
 
   renderItemList = () => {
     const items = [
-      {id: 1, 'name': 'Snack Kit'},
-      {id: 2, 'name': 'Socks and Underwear'},
-      {id: 3, 'name': 'Walking Shoes'},
-      {id: 4, 'name': 'Pads/Tampons'},
-      {id: 5, 'name': 'First Aid Kit'},
-      {id: 6, 'name': 'Dental Care Kit'},
-      {id: 7, 'name': 'Deodorant and Soap'},
-      {id: 8, 'name': 'Earplugs'},
-      {id: 9, 'name': 'Face Mask, Sanitizer, Gloves'},
-      {id: 10, 'name': 'Blanket'},
-      {id: 11, 'name': 'Diapers, Wipes, Baby Clothes'},
-      {id: 12, 'name': 'Baby Formula'},
-      {id: 13, 'name': 'School Supplies'},
-      {id: 14, 'name': 'Notepad and Pens'},
-      {id: 15, 'name': 'Hat, Mittens, Scarf'},
-      {id: 16, 'name': 'Sweater/Jacket'},
-      {id: 17, 'name': 'Narcan/Naloxone'}
+      { id: 1, 'name': 'Snack Kit' },
+      { id: 2, 'name': 'Socks and Underwear' },
+      { id: 3, 'name': 'Walking Shoes' },
+      { id: 4, 'name': 'Pads/Tampons' },
+      { id: 5, 'name': 'First Aid Kit' },
+      { id: 6, 'name': 'Dental Care Kit' },
+      { id: 7, 'name': 'Deodorant and Soap' },
+      { id: 8, 'name': 'Earplugs' },
+      { id: 9, 'name': 'Face Mask, Sanitizer, Gloves' },
+      { id: 10, 'name': 'Blanket' },
+      { id: 11, 'name': 'Diapers, Wipes, Baby Clothes' },
+      { id: 12, 'name': 'Baby Formula' },
+      { id: 13, 'name': 'School Supplies' },
+      { id: 14, 'name': 'Notepad and Pens' },
+      { id: 15, 'name': 'Hat, Mittens, Scarf' },
+      { id: 16, 'name': 'Sweater/Jacket' },
+      { id: 17, 'name': 'Narcan/Naloxone' }
     ]
 
     return (
       <div>
         {items.map((item) => (
-            <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value={item.id}
-                  onChange={() => this.toggleItemInList(item.id)}
-                />
-                <div className='item-text'>{item.name}</div>
-              </label>
+          <div className='item'>
+            <label className='item-label'>
+              <input
+                type='checkbox'
+                className='checkbox-btn'
+                value={item.id}
+                onChange={() => this.toggleItemInList(item.id)}
+              />
+              <div className='item-text'>{item.name}</div>
+            </label>
 
-              <label className='quantity-label-and-input'>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(item.id, e.target.value)}
-                  />
-              </label>
-            </div>
+            <label className='quantity-label-and-input'>
+              <div className='quantity-label'>Quantity</div>
+              <input
+                type='number'
+                className='quantity'
+                min='0'
+                max='20'
+                onChange={(e) => this.updateQuantityOfItem(item.id, e.target.value)}
+              />
+            </label>
+          </div>
         ))}
       </div>
 
@@ -144,7 +144,7 @@ export default class Home extends Component {
                   required
                 />
               </label>
-              
+
               {this.renderItemList()}
 
               <button type='submit' id='wishlist-sbt-btn'>
