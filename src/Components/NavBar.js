@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import TokenService from "../Service/token-service";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 
 import "./Styling/NavBar.css";
 
@@ -14,20 +15,20 @@ export default class NavBar extends Component {
 
   userIsLoggedOut() {
     return (
-      <div id='nav-links'>
-        <Link className='link' to='/resources'>
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <Button component={Link} to='/resources' color="inherit">
           Resources
-        </Link>
-        <Link className='link' to='/about'>
+        </Button>
+        <Button component={Link} to='/about' color="inherit">
           About
-        </Link>
-        <Link className='link' to='/register'>
+        </Button>
+        <Button component={Link} to='/register' color="inherit">
           Register
-        </Link>
-        <Link className='link' to='/login'>
+        </Button>
+        <Button component={Link} to='/login' color="inherit">
           Login
-        </Link>
-      </div>
+        </Button>
+      </Box>
     );
   }
 
@@ -35,47 +36,53 @@ export default class NavBar extends Component {
     const { user } = this.context;
     if (user.role === "admin") {
       return (
-        <Link className='link' to='/admin'>
+        <Button component={Link} to='/admin' color="inherit">
           Admin
-        </Link>
+        </Button>
       );
     } else {
       return (
-        <Link className='link' to='/'>
+        <Button component={Link} to='/' color="inherit">
           Home
-        </Link>
+        </Button>
       );
     }
   }
 
   userIsLoggedIn() {
     return (
-      <div id='nav-links'>
+      <Box sx={{ display: 'flex', gap: 2 }}>
         {this.findUserRole()}
-        <Link className='link' to='/resources'>
+        <Button component={Link} to='/resources' color="inherit">
           Resources
-        </Link>
-        <Link className='link' to='/about'>
+        </Button>
+        <Button component={Link} to='/about' color="inherit">
           About
-        </Link>
-        <Link className='link' onClick={this.handleLogoutClick} to='/login'>
+        </Button>
+        <Button component={Link} onClick={this.handleLogoutClick} to='/login' color="inherit">
           Logout
-        </Link>
-      </div>
+        </Button>
+      </Box>
     );
   }
 
   render() {
     return (
-      <nav id='nav-bar'>
-        <div id='container-inside-nav'>
-          <h1 id='navbar-title'>MASS</h1>
-          <p id='navbar-full-name'>Mutual Aid & Shared Support</p>
-          {TokenService.hasAuthToken()
-            ? this.userIsLoggedIn()
-            : this.userIsLoggedOut()}
-        </div>
-      </nav>
+      <AppBar position="static" color="default" elevation={3}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', padding: '20px 40px 10px 40px' }}>
+          <Box>
+            <Typography variant="h4" component="div" sx={{ color: '#12806b', fontSize: '36px' }}>
+              MASS
+            </Typography>
+            <Typography variant="subtitle1" component="div" sx={{ paddingLeft: '10px' }}>
+              Mutual Aid & Shared Support
+            </Typography>
+          </Box>
+          <Box>
+            {TokenService.hasAuthToken() ? this.userIsLoggedIn() : this.userIsLoggedOut()}
+          </Box>
+        </Toolbar>
+      </AppBar>
     );
   }
 }

@@ -5,16 +5,17 @@
 }
 
 #navbar-title {
-  margin: 0 0 0 0;
+  margin: 0;
   color: #12806b;
   font-size: 36px;
 }
 
 #navbar-full-name {
-  margin: 0 0 5px 0;
+  margin: 0;
   padding: 0 0 0 10px;
 }
 
+/* These styles are no longer needed as they are handled by Material-UI */
 #nav-links {
   float: right;
   margin-bottom: 30px;
