@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import About from "./Components/About";
 import Home from "./Components/Home";
@@ -16,14 +16,14 @@ export function App() {
   return (
     <>
       <NavBar />
-      <Switch>
-        <PrivateRoute path='/admin' component={Admin} />
-        <Route path='/about' component={About} />
-        <Route path='/resources' component={Resources} />
-        <PrivateRoute path='/' exact component={Home} />
-        <Route path='/register' component={Register} />
-        <Route path='/login' component={Login} />
-      </Switch>
+      <Routes>
+        <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/" element={<PrivateRoute element={<Home />} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
       <Footer />
     </>
   );

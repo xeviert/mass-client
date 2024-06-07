@@ -28,9 +28,7 @@ export default class Login extends Component {
         this.context.processLogin(res.authToken);
         this.pushUserDependingOnRole();
       })
-      .catch((res) => {
-        this.setState({ error: res.error });
-      });
+      .catch((res) => this.setState({ error: res.error }));
   };
 
   pushUserDependingOnRole() {
