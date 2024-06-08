@@ -1,34 +1,23 @@
-h2 {
-  padding: 0 2vh;
-  color: #12806b;
-  font-weight: 500;
+.App {
+  text-align: center;
 }
 
-.page-body {
-  margin: 0 auto;
-  max-width: 1200px;
-  padding: 0 24px;
-  width: 100%;
-  box-sizing: border-box;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-a {
-  color: #0e7c68;
-  margin: 3vh;
-  line-height: 3vh;
-  text-decoration: none;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-a:visited {
-  color: #0e7c68;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-@media all and (min-width: 1000px) {
-  h2 {
-    padding: 0 18vh;
-  }
+.App-link {
+  color: #61dafb;
 }
