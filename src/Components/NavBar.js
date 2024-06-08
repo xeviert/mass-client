@@ -1,17 +1,8 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
-
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
-import Drawer from '@mui/material/Drawer';
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AppBar, Box, Toolbar, Button, Container, Typography, MenuItem, Drawer, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { AppContext } from '../AppContext';
 
 const logoStyle = {
   width: '120px',
@@ -23,6 +14,11 @@ const logoStyle = {
 
 function NavBar({ mode }) {
   const [open, setOpen] = React.useState(false);
+  const { user, processLogout } = useContext(AppContext);
+
+  const handleLogoutClick = () => {
+    processLogout();
+  };
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
@@ -71,12 +67,25 @@ function NavBar({ mode }) {
                 px: 0,
               }}
             >
-              <img
-                src='/images/logo.png'
-                style={logoStyle}
-                alt="logo of sitemark"
-              />
+              <Link to="/" style={{ textDecoration: 'none' }}>
+                <img
+                  src='/images/logo.png'
+                  style={logoStyle}
+                  alt="logo of sitemark"
+                />
+              </Link>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                {user && user.id && (
+                  <MenuItem
+                    sx={{ py: '6px', px: '12px' }}
+                    component={Link}
+                    to={user.role === 'admin' ? '/admin' : '/'}
+                  >
+                    <Typography variant="body2" color="text.primary">
+                      {user.role === 'admin' ? 'Admin' : 'Home'}
+                    </Typography>
+                  </MenuItem>
+                )}
                 <MenuItem
                   sx={{ py: '6px', px: '12px' }}
                   component={Link}
@@ -104,22 +113,37 @@ function NavBar({ mode }) {
                 alignItems: 'center',
               }}
             >
-              <Button
-                color="primary"
-                variant="text"
-                size="small"
-                component={Link} to='/login'
-              >
-                Sign in
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                size="small"
-                component={Link} to='/register'
-              >
-                Sign up
-              </Button>
+              {user && user.id ? (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  size="small"
+                  onClick={handleLogoutClick}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    color="primary"
+                    variant="text"
+                    size="small"
+                    component={Link}
+                    to='/login'
+                  >
+                    Sign in
+                  </Button>
+                  <Button
+                    color="primary"
+                    variant="contained"
+                    size="small"
+                    component={Link}
+                    to='/register'
+                  >
+                    Sign up
+                  </Button>
+                </>
+              )}
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button
@@ -156,30 +180,47 @@ function NavBar({ mode }) {
                     Resources
                   </MenuItem>
                   <Divider />
-                  <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="contained"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-up/"
-                      target="_blank"
-                      sx={{ width: '100%' }}
-                    >
-                      Sign up
-                    </Button>
-                  </MenuItem>
-                  <MenuItem>
-                    <Button
-                      color="primary"
-                      variant="outlined"
-                      component="a"
-                      href="/material-ui/getting-started/templates/sign-in/"
-                      target="_blank"
-                      sx={{ width: '100%' }}
-                    >
-                      Sign in
-                    </Button>
-                  </MenuItem>
+                  {user && user.id ? (
+                    <>
+                      <MenuItem component={Link} to={user.role === 'admin' ? '/admin' : '/'}>
+                        {user.role === 'admin' ? 'Admin' : 'Home'}
+                      </MenuItem>
+                      <MenuItem onClick={handleLogoutClick}>
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          sx={{ width: '100%' }}
+                        >
+                          Logout
+                        </Button>
+                      </MenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem>
+                        <Button
+                          color="primary"
+                          variant="contained"
+                          component={Link}
+                          to='/register'
+                          sx={{ width: '100%' }}
+                        >
+                          Sign up
+                        </Button>
+                      </MenuItem>
+                      <MenuItem>
+                        <Button
+                          color="primary"
+                          variant="outlined"
+                          component={Link}
+                          to='/login'
+                          sx={{ width: '100%' }}
+                        >
+                          Sign in
+                        </Button>
+                      </MenuItem>
+                    </>
+                  )}
                 </Box>
               </Drawer>
             </Box>
@@ -189,9 +230,5 @@ function NavBar({ mode }) {
     </div>
   );
 }
-
-NavBar.propTypes = {
-  mode: PropTypes.oneOf(['dark', 'light']).isRequired
-};
 
 export default NavBar;
