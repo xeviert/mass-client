@@ -1,6 +1,5 @@
 #landing-page-body {
   text-align: center;
-  /* Keep if not handled by Material-UI */
 }
 
 @media all and (min-width: 750px) {

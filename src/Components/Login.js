@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput from "react-phone-input-2";
 import AuthApiService from "../Service/auth-api-service";
 import { AppContext } from "../AppContext";
 import "./Styling/RegisterLogin.css";
+import "react-phone-input-2/lib/style.css";
 
 export default class Login extends Component {
   static defaultProps = {
@@ -71,6 +72,7 @@ export default class Login extends Component {
 
               <label>Phone Number:</label>
               <PhoneInput
+                country={'us'}
                 placeholder=' enter phone #'
                 name='phone_number'
                 defaultCountry='US'
