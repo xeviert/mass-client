@@ -1,9 +1,0 @@
-#landing-page-body {
-  text-align: center;
-}
-
-@media all and (min-width: 750px) {
-  #our-commitments {
-    flex-direction: column;
-  }
-}

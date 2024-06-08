@@ -4,8 +4,6 @@ import { AppContext } from "../AppContext";
 import TokenService from "../Service/token-service";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 
-import "./Styling/NavBar.css";
-
 export default class NavBar extends Component {
   static contextType = AppContext;
 
