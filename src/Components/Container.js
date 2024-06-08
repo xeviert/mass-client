@@ -7,7 +7,7 @@ const Container = ({ children }) => {
       sx={{
         maxWidth: '1000px',
         margin: '0 auto',
-        padding: '16px',
+        padding: '120px 16px 16px 16px',
         width: '100%'
       }}
     >

@@ -19,6 +19,7 @@ export function App() {
     <>
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Box component="main" sx={{ flex: 1 }}>
+          {/* <NavBar /> */}
           <NavBar />
           <Container>
             <Routes>
