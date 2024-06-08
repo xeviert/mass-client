@@ -1,10 +1,8 @@
 .page-body-resources {
-  width: min(900px, calc(80% + 68px));
-  font-size: clamp(12px, 16px, 20px);
   margin: 0 auto;
-  margin-bottom: 10vh;
 }
 
 .resource-sections {
+  margin-bottom: 20px;
   word-wrap: break-word;
 }
