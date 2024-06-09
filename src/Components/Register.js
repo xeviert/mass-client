@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthApiService from "../Service/auth-api-service";
-import PhoneInput from "react-phone-number-input";
-import "./Styling/RegisterLogin.css";
 
 export default class Register extends Component {
   state = { error: null };
@@ -41,13 +39,13 @@ export default class Register extends Component {
               {this.state.error && <p className='error'>{this.state.error}</p>}
 
               <label>Phone Number:</label>
-              <PhoneInput
+              {/* <PhoneInput
                 placeholder=' enter phone #'
                 name='phone_number'
                 defaultCountry='US'
                 onChange={this.setValue}
                 required
-              />
+              /> */}
               <label id='password-label'>Password:</label>
               <input type='password' name='password' required />
               <label id='password-label'>Confirm Password:</label>

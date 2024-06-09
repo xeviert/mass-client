@@ -130,7 +130,7 @@ const getDesignTokens = (mode) => ({
     },
   },
   typography: {
-    fontFamily: ['"Roboto", "Arial"'].join(','),
+    fontFamily: ['""Roboto", "Helvetica", "Arial", sans-serif"'].join(','),
     h1: {
       fontSize: 60,
       fontWeight: 600,
