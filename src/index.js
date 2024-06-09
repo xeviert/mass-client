@@ -3,9 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import CssBaseline from '@mui/material/CssBaseline';
 import "./index.css";
-import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
 
 import { AppProvider } from "./AppContext";
 
@@ -14,13 +13,12 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Router>
-        <AppProvider>
-          <App />
-        </AppProvider>
-      </Router>
-    </ThemeProvider>
+    <CssBaseline />
+    <Router>
+      <AppProvider>
+        <App />
+      </AppProvider>
+    </Router>
   </React.StrictMode>,
 );
 
