@@ -50,16 +50,16 @@ export default class OldLogin extends Component {
         <div className='page-body'>
           <h2>Login</h2>
 
-          <div id='demo'>DEMO:</div>
-          <div id='demo-creds'>
-            <div className='demo-creds-individual'>
+          <div>DEMO:</div>
+          <div >
+            <div>
               <span>role: admin</span>
-              <span>phone number: (713)584-1234</span>
+              <span>phone number: 7135841234</span>
               <span>password: pass</span>
             </div>
-            <div className='demo-creds-individual'>
+            <div>
               <span>role: user</span>
-              <span>phone number: (512)555-1234</span>
+              <span>phone number: 5125551234</span>
               <span>password: pass</span>
             </div>
           </div>

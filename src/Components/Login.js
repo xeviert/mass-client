@@ -37,15 +37,13 @@ const Login = ({ onLoginSuccess = () => { } }) => {
   const handleLogin = (ev) => {
     ev.preventDefault();
     setError(null);
-    debugger
-    const { phone_number, password } = ev.target;
-    debugger
-    const user = { phone_number: phone_number.value, password: password.value };
 
+    const password = ev.target.password.value; // Get password value directly
+    const user = { phone_number: phone_number, password: password }; // Use state value for phone_number
     AuthApiService.postLogin(user)
       .then((res) => {
-        phone_number.value = "";
-        password.value = "";
+        setPhoneNumber(""); // Clear state
+        ev.target.password.value = ""; // Clear password input
         context.processLogin(res.authToken);
         pushUserDependingOnRole();
       })
@@ -67,7 +65,7 @@ const Login = ({ onLoginSuccess = () => { } }) => {
       component="main"
       maxWidth="xs"
       sx={{
-        mt: 12,
+        mt: 4,
         mb: 8,
       }}>
       <Box
@@ -78,6 +76,26 @@ const Login = ({ onLoginSuccess = () => { } }) => {
           alignItems: 'center',
         }}
       >
+        <Box sx={{ p: 1, border: '1px solid', borderColor: 'grey.300', borderRadius: 1, mt: 2, mb: 2, }}>
+          <Typography variant="h6" gutterBottom align="center">DEMO:</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Box sx={{ p: 1, border: '1px solid', borderColor: 'grey.300', borderRadius: 1 }}>
+                <Typography variant="body1"><strong>role:</strong> admin</Typography>
+                <Typography variant="body1"><strong>phone number:</strong> (713) 584-1234</Typography>
+                <Typography variant="body1"><strong>password:</strong> pass</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Box sx={{ p: 1, border: '1px solid', borderColor: 'grey.300', borderRadius: 1 }}>
+                <Typography variant="body1"><strong>role:</strong> user</Typography>
+                <Typography variant="body1"><strong>phone number:</strong> (512) 555-1234</Typography>
+                <Typography variant="body1"><strong>password:</strong> pass</Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>
