@@ -1,83 +1,180 @@
-import React, { Component } from "react";
-import config from "../config";
-import { AppContext } from '../AppContext'
-import "./Styling/Admin.css";
+import * as React from 'react';
+import { useContext } from 'react';
+import { styled } from '@mui/material/styles';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { AppContext } from '../AppContext';
 
-export default class Admin extends Component {
-  static contextType = AppContext;
-  constructor(props) {
-    super(props);
-    this.state = {
-      orders: [],
-    };
-  }
+import { mainListItems, secondaryListItems } from './listItems';
+import Orders from './Orders';
 
-  componentDidMount() {
-    const { user } = this.context;
-    if (user.role === "admin") {
-      this.getAllOrders();
-    }
-  }
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://xevier.dev/">
+        Xevier
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
 
-  findUserRole() {
-    const { user } = this.context;
-    const { orders } = this.state;
+const drawerWidth = 240;
 
-    if (user.role === "admin") {
-      return (
-        <div>
-          <h2>Wishlist Orders</h2>
-          <div id='admin-page-body'>
-            <table>
-              <tr>
-                <th>Order ID</th>
-                <th>Phone Number</th>
-                <th>Item</th>
-                <th>Location/Address</th>
-                <th>Qty.</th>
-              </tr>
-              {orders.map((order) => (
-                <tr key={order.id}>
-                  <td className='order-attribute-id'>{order.order_id}</td>
-                  <td className='order-attribute-pn'>{order.phone_number}</td>
-                  <td className='order-attribute'>{order.product}</td>
-                  <td className='order-attribute-location'>{order.location}</td>
-                  <td className='order-attribute-id' >{order.quantity}</td>
-                </tr>
-              ))}
-            </table>
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        this.props.history.push("/")
-      );
-    }
-  }
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
-  getAllOrders() {
-    return fetch(`${config.API_ENDPOINT}/admin/orders`, {
-      method: "GET",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((orders) => {
-        this.setState({ orders });
-      });
-  }
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: 'border-box',
+      backgroundColor: '#ffffff',
+      ...(!open && {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }),
+);
 
-  render() {
-    return (
-      <div>
-        <div className='page-body'>
-          {this.findUserRole()}
-        </div>
-      </div>
-    );
-  }
+
+export default function Dashboard() {
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+  const { user, processLogout } = useContext(AppContext);
+
+  const handleLogoutClick = () => {
+    processLogout();
+  };
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <AppBar position="absolute" open={open}>
+        <Toolbar
+          sx={{
+            pr: '24px', // keep right padding when drawer closed
+          }}
+        >
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            sx={{
+              marginRight: '36px',
+              ...(open && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            Dashboard
+          </Typography>
+          <IconButton color="inherit">
+            <Badge badgeContent={4} color="secondary">
+              <NotificationsIcon />
+            </Badge>
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <Toolbar
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            px: [1],
+          }}
+        >
+          <IconButton onClick={toggleDrawer}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <List component="nav">
+          {mainListItems}
+          <Divider sx={{ my: 1 }} />
+          {secondaryListItems}
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light'
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
+        <Toolbar />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            {/* Recent Orders */}
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
+                <Orders />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Copyright sx={{ pt: 4 }} />
+        </Container>
+      </Box>
+    </Box>
+  );
 }

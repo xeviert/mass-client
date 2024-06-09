@@ -6,6 +6,7 @@ import Divider from '@mui/material/Divider';
 import Hero from './Hero';
 import Highlights from './Highlights';
 import Features from './Features';
+import Footer from './Footer';
 
 export default function LandingPage() {
 
@@ -17,6 +18,7 @@ export default function LandingPage() {
         <Divider />
         <Highlights />
         <Divider />
+        <Footer />
       </Box>
     </>
   );

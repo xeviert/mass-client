@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import About from "./Components/About";
 import Home from "./Components/Home";
 import Resources from "./Components/Resources";
-import Footer from "./Components/Footer";
 import PrivateRoute from "./Components/PrivateRoute";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
@@ -25,9 +24,11 @@ export function App() {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  const location = useLocation();
+
   return (
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
-      <NavBar mode={mode} toggleColorMode={toggleColorMode} />
+      {location.pathname !== "/admin" && <NavBar mode={mode} toggleColorMode={toggleColorMode} />}
       <Routes>
         <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
         <Route path="/about" element={<LandingPage />} />
@@ -36,7 +37,6 @@ export function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>
-      <Footer />
     </ThemeProvider>
   );
 }
