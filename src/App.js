@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import About from "./Components/About";
@@ -12,9 +10,7 @@ import PrivateRoute from "./Components/PrivateRoute";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Admin from "./Components/Admin";
-import Container from "./Components/Container";
 import LandingPage from "./Components/LandingPage";
-import { Box } from '@mui/material';
 import getLPTheme from './getLPTheme';
 
 import "./App.css";
