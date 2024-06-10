@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
-import "./Styling/Home.css";
+import { Container, Button, Box, Grid, Checkbox, TextField, Typography, FormControlLabel } from '@mui/material';
 
 export default class Home extends Component {
   state = {
@@ -103,67 +103,70 @@ export default class Home extends Component {
     ];
 
     return (
-      <div>
+      <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
         {items.map((item) => (
-          <div className="item" key={item.id}>
-            <label className="item-label">
-              <input
-                type="checkbox"
-                className="checkbox-btn"
-                value={item.id}
-                onChange={() => this.toggleItemInList(item.id)}
-              />
-              <div className="item-text">{item.name}</div>
-            </label>
-
-            <label className="quantity-label-and-input">
-              <div className="quantity-label">Quantity</div>
-              <input
-                type="number"
-                className="quantity"
-                min="0"
-                max="20"
-                disabled={!this.state.checked_items[item.id]}
-                value={this.state.order_items[item.id] || ""}
-                onChange={(e) =>
-                  this.updateQuantityOfItem(item.id, e.target.value)
-                }
-              />
-            </label>
-          </div>
+          <Box key={item.id} sx={{ marginBottom: '20px' }}>
+            <Grid container alignItems="center">
+              <Grid item xs={12} sm={6}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value={item.id}
+                      onChange={() => this.toggleItemInList(item.id)}
+                    />
+                  }
+                  label={<Typography variant="body1">{item.name}</Typography>}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Box display="flex" alignItems="center">
+                  <Typography variant="body2" sx={{ marginRight: '10px' }}>Quantity</Typography>
+                  <TextField
+                    type="number"
+                    inputProps={{ min: 0, max: 20 }}
+                    disabled={!this.state.checked_items[item.id]}
+                    value={this.state.order_items[item.id] || ""}
+                    onChange={(e) =>
+                      this.updateQuantityOfItem(item.id, e.target.value)
+                    }
+                    size="small"
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
         ))}
-      </div>
+      </Box>
     );
   };
 
   render() {
     return (
-      <div>
-        <div>
-          <div id="home-body">
-            <h2>Wishlist</h2>
-            <form onSubmit={(e) => this.handleSubmit(e)} id="wishlist-form">
-              <label id="location">
-                Location/Address:
-                <br />
-                <input
-                  type="text"
-                  maxLength="50"
-                  id="location-input"
-                  onChange={(e) => this.setLocationOnChange(e.target.value)}
-                  required
-                />
-              </label>
-
-              {this.renderItemList()}
-
-              <button type="submit" id="wishlist-sbt-btn">
-                Submit List
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+      <Container sx={{ mt: 12 }}>
+        <Box sx={{ width: '100%', maxWidth: '900px', mx: 'auto', mb: '10vh', mt: '4vh' }}>
+          <Typography variant="h2" sx={{ mb: 4, color: 'primary.main' }}>Wishlist</Typography>
+          <Box component="form" onSubmit={(e) => this.handleSubmit(e)} noValidate sx={{ mt: 1 }}>
+            <Typography variant="h6">Location/Address:</Typography>
+            <TextField
+              fullWidth
+              variant="outlined"
+              margin="normal"
+              // value={location}
+              onChange={(e) => this.setLocationOnChange(e.target.value)}
+              required
+            />
+            {this.renderItemList()}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Submit List
+            </Button>
+          </Box>
+        </Box>
+      </Container>
     );
   }
 }

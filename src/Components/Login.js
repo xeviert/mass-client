@@ -14,6 +14,8 @@ import PhoneNumberInput from './PhoneNumberInput';
 import AuthApiService from "../Service/auth-api-service";
 import { AppContext } from "../AppContext";
 
+// consolidate Copyright and turn this page to the two sided page with an image on the left (template in MUI)
+
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
