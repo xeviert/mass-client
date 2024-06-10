@@ -19,24 +19,21 @@ const items = [
     title: 'Dashboard',
     description:
       'This item could provide a snapshot of the most important metrics or data points related to the product.',
-    imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
+    image: 'url("/static/images/templates/templates-images/dash-light.png")',
   },
   {
     icon: <EdgesensorHighRoundedIcon />,
     title: 'Mobile integration',
     description:
       'This item could provide information about the mobile app version of the product.',
-    imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
+    image: 'url("/static/images/templates/templates-images/mobile-light.png")',
   },
   {
     icon: <DevicesRoundedIcon />,
     title: 'Available on all platforms',
     description:
       'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
-    imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
+    image: 'url("/static/images/templates/templates-images/devices-light.png")',
   },
 ];
 
@@ -74,18 +71,8 @@ export default function Features() {
                 label={title}
                 onClick={() => handleItemClick(index)}
                 sx={{
-                  borderColor: (theme) => {
-                    if (theme.palette.mode === 'light') {
-                      return selectedItemIndex === index ? 'primary.light' : '';
-                    }
-                    return selectedItemIndex === index ? 'primary.light' : '';
-                  },
-                  background: (theme) => {
-                    if (theme.palette.mode === 'light') {
-                      return selectedItemIndex === index ? 'none' : '';
-                    }
-                    return selectedItemIndex === index ? 'none' : '';
-                  },
+                  borderColor: selectedItemIndex === index ? 'primary.light' : '',
+                  background: selectedItemIndex === index ? 'none' : '',
                   backgroundColor: selectedItemIndex === index ? 'primary.main' : '',
                   '& .MuiChip-label': {
                     color: selectedItemIndex === index ? '#fff' : '',
@@ -104,10 +91,7 @@ export default function Features() {
           >
             <Box
               sx={{
-                backgroundImage: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? items[selectedItemIndex].imageLight
-                    : items[selectedItemIndex].imageDark,
+                backgroundImage: items[selectedItemIndex].image,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 minHeight: 280,
@@ -160,14 +144,9 @@ export default function Features() {
                   background: 'none',
                   backgroundColor:
                     selectedItemIndex === index ? 'action.selected' : undefined,
-                  borderColor: (theme) => {
-                    if (theme.palette.mode === 'light') {
-                      return selectedItemIndex === index
-                        ? 'primary.light'
-                        : 'grey.200';
-                    }
-                    return selectedItemIndex === index ? 'primary.dark' : 'grey.800';
-                  },
+                  borderColor: selectedItemIndex === index
+                    ? 'primary.light'
+                    : 'grey.200',
                 }}
               >
                 <Box
@@ -182,16 +161,9 @@ export default function Features() {
                 >
                   <Box
                     sx={{
-                      color: (theme) => {
-                        if (theme.palette.mode === 'light') {
-                          return selectedItemIndex === index
-                            ? 'primary.main'
-                            : 'grey.300';
-                        }
-                        return selectedItemIndex === index
-                          ? 'primary.main'
-                          : 'grey.700';
-                      },
+                      color: selectedItemIndex === index
+                        ? 'primary.main'
+                        : 'grey.300',
                     }}
                   >
                     {icon}
@@ -258,10 +230,7 @@ export default function Features() {
                 width: 420,
                 height: 500,
                 backgroundSize: 'contain',
-                backgroundImage: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? items[selectedItemIndex].imageLight
-                    : items[selectedItemIndex].imageDark,
+                backgroundImage: items[selectedItemIndex].image,
               }}
             />
           </Card>

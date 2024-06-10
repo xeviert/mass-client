@@ -6,28 +6,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 
 import PhoneNumberInput from './PhoneNumberInput';
 import AuthApiService from "../Service/auth-api-service";
 import { AppContext } from "../AppContext";
-
-// consolidate Copyright and turn this page to the two sided page with an image on the left (template in MUI)
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://xevier.dev/">
-        Xevier
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const Login = () => {
   const [error, setError] = useState(null);
@@ -67,84 +52,101 @@ const Login = () => {
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      sx={{
-        mt: 4,
-        mb: 8,
-      }}>
-      <Box
+    <Grid container component="main" sx={{ height: '100vh' }}>
+      <Grid
+        item
+        xs={false}
+        sm={4}
+        md={7}
         sx={{
-          marginTop: 8,
+          backgroundImage: 'url(images/login.png)',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: 'grey.100',
+          backgroundSize: '80%',
+          backgroundPosition: 'center',
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <Box sx={{ p: 1, border: '1px solid', borderColor: 'grey.300', borderRadius: 1, mt: 2, mb: 2, }}>
-          <Typography variant="h6" gutterBottom align="center">DEMO:</Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Box sx={{ p: 1, border: '1px solid', borderColor: 'grey.300', borderRadius: 1 }}>
-                <Typography variant="body1"><strong>role:</strong> admin</Typography>
-                <Typography variant="body1"><strong>phone number:</strong> (713) 584-1234</Typography>
-                <Typography variant="body1"><strong>password:</strong> pass</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{ p: 1, border: '1px solid', borderColor: 'grey.300', borderRadius: 1 }}>
-                <Typography variant="body1"><strong>role:</strong> user</Typography>
-                <Typography variant="body1"><strong>phone number:</strong> (512) 555-1234</Typography>
-                <Typography variant="body1"><strong>password:</strong> pass</Typography>
-              </Box>
-            </Grid>
-          </Grid>
+        <Box
+          sx={{
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            padding: 2,
+            borderRadius: 2,
+            width: '30%'
+          }}
+        >
+          <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
+            DEMO CREDENTIALS:
+          </Typography>
+          <Box sx={{ mb: 3 }}>
+            <Typography variant="body1"><strong>Role:</strong> Admin</Typography>
+            <Typography variant="body1"><strong>Phone Number:</strong> (713) 584-1234</Typography>
+            <Typography variant="body1"><strong>Password:</strong> pass</Typography>
+          </Box>
+          <Box>
+            <Typography variant="body1"><strong>Role:</strong> User</Typography>
+            <Typography variant="body1"><strong>Phone Number:</strong> (512) 555-1234</Typography>
+            <Typography variant="body1"><strong>Password:</strong> pass</Typography>
+          </Box>
         </Box>
+      </Grid>
 
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1, width: 1 }}>
-          <PhoneNumberInput
-            value={phone_number}
-            onChange={setPhoneNumber}
-            placeholder=' enter phone #'
-            name='phone_number'
-            required />
-          <TextField
-            margin="normal"
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            required
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign In
-          </Button>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link to='/register' variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ bgcolor: 'white' }}>
+        <Box
+          sx={{
+            my: 8,
+            mx: 20,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            mt: 20
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+            <PhoneNumberInput
+              value={phone_number}
+              onChange={setPhoneNumber}
+              placeholder=' enter phone #'
+              name='phone_number'
+              required />
+            <TextField
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              required
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+            <Grid container justifyContent="center">
+              <Grid item>
+                <Link to='/register' variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Box>
-      </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
-    </Container>
+      </Grid>
+    </Grid>
   );
 }
 

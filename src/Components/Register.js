@@ -20,19 +20,6 @@ const Register = () => {
   const [passwordMatchError, setPasswordMatchError] = useState(null);
   const navigate = useNavigate();
 
-  function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://xevier.dev/">
-          Xevier
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
-
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     if (confirmPassword && e.target.value !== confirmPassword) {
@@ -147,7 +134,6 @@ const Register = () => {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 };

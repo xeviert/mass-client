@@ -3,10 +3,9 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Link from '@mui/material/Link';
+import { Typography, Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 
 import FacebookIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -21,8 +20,11 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {'Copyright © '}
-      <Link href="https://xevier.dev/">Xevier&nbsp;</Link>
+      <Link href="https://xevier.dev/" target="_blank" rel="noopener noreferrer">
+        Xevier
+      </Link>{' '}
       {new Date().getFullYear()}
+      {'.'}
     </Typography>
   );
 }
@@ -103,16 +105,7 @@ export default function Footer() {
             Features
           </Link>
           <Link color="text.secondary" href="#">
-            Testimonials
-          </Link>
-          <Link color="text.secondary" href="#">
             Highlights
-          </Link>
-          <Link color="text.secondary" href="#">
-            Pricing
-          </Link>
-          <Link color="text.secondary" href="#">
-            FAQs
           </Link>
         </Box>
         <Box
@@ -128,10 +121,10 @@ export default function Footer() {
           <Link color="text.secondary" href="#">
             About us
           </Link>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary">
             Careers
           </Link>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary">
             Press
           </Link>
         </Box>
@@ -145,13 +138,13 @@ export default function Footer() {
           <Typography variant="body2" fontWeight={600}>
             Legal
           </Typography>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary">
             Terms
           </Link>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary">
             Privacy
           </Link>
-          <Link color="text.secondary" href="#">
+          <Link color="text.secondary">
             Contact
           </Link>
         </Box>
@@ -189,7 +182,7 @@ export default function Footer() {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/mui"
+            href="https://github.com/xeviert"
             aria-label="GitHub"
             sx={{ alignSelf: 'center' }}
           >
@@ -197,7 +190,7 @@ export default function Footer() {
           </IconButton>
           <IconButton
             color="inherit"
-            href="https://twitter.com/MaterialUI"
+            href="https://twitter.com/Xevier_T"
             aria-label="X"
             sx={{ alignSelf: 'center' }}
           >
@@ -205,7 +198,7 @@ export default function Footer() {
           </IconButton>
           <IconButton
             color="inherit"
-            href="https://www.linkedin.com/company/mui/"
+            href="https://www.linkedin.com/in/xevierturrubiartes/"
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
           >
