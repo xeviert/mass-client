@@ -7,7 +7,7 @@ const Resources = () => {
     <Box
       sx={{
         width: '100%',
-        backgroundImage: 'linear-gradient(180deg, #B2DFDB, #FFF 50%)',
+        backgroundImage: 'linear-gradient(180deg, #CCF0ED, #FFF 50%)',
         backgroundSize: '100% 20%',
         backgroundRepeat: 'no-repeat',
       }}

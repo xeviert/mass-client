@@ -12,15 +12,12 @@ export default function Hero() {
   return (
     <Box
       id="hero"
-      sx={(theme) => ({
+      sx={{
         width: '100%',
-        backgroundImage:
-          theme.palette.mode === 'light'
-            ? 'linear-gradient(180deg, #B2DFDB, #FFF)'
-            : `linear-gradient(#004D40, ${alpha('#090E10', 0.0)})`,
+        backgroundImage: 'linear-gradient(180deg, #CCF0ED, #FFF)',
         backgroundSize: '100% 20%',
         backgroundRepeat: 'no-repeat',
-      })}
+      }}
     >
       <Container
         sx={{
@@ -48,8 +45,7 @@ export default function Hero() {
               variant="h1"
               sx={{
                 fontSize: 'clamp(3rem, 10vw, 4rem)',
-                color: (theme) =>
-                  theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',
+                color: 'primary.main',
               }}
             >
               products
@@ -97,27 +93,18 @@ export default function Hero() {
         </Stack>
         <Box
           id="image"
-          sx={(theme) => ({
+          sx={{
             mt: { xs: 8, sm: 10 },
             alignSelf: 'center',
             height: { xs: 200, sm: 700 },
             width: '100%',
-            backgroundImage:
-              theme.palette.mode === 'light'
-                ? 'url("images/admin.png")'
-                : 'url("/static/images/templates/templates-images/hero-dark.png")',
+            backgroundImage: 'url("images/admin.png")',
             backgroundSize: 'cover',
             borderRadius: '10px',
             outline: '1px solid',
-            outlineColor:
-              theme.palette.mode === 'light'
-                ? alpha('#BFCCD9', 0.5)
-                : alpha('#9CCCFC', 0.1),
-            boxShadow:
-              theme.palette.mode === 'light'
-                ? `0 0 12px 8px ${alpha('#9CCCFC', 0.2)}`
-                : `0 0 24px 12px ${alpha('#033363', 0.2)}`,
-          })}
+            outlineColor: alpha('#BFCCD9', 0.5),
+            boxShadow: `0 0 12px 8px ${alpha('#9CCCFC', 0.2)}`,
+          }}
         />
       </Container>
     </Box>

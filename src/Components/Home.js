@@ -103,7 +103,7 @@ const Home = () => {
     ];
 
     return (
-      <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px' }}>
+      <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', mt: 2 }}>
         {items.map((item) => (
           <Box key={item.id} sx={{ marginBottom: '20px' }}>
             <Grid container alignItems="center">
@@ -141,7 +141,7 @@ const Home = () => {
   };
 
   return (
-    <Container sx={{ mt: 12 }}>
+    <Container sx={{ mt: 16 }}>
       <Box sx={{ width: '100%', maxWidth: '900px', mx: 'auto', mb: '10vh', mt: '4vh' }}>
         <Typography variant="h2" sx={{ mb: 4, color: 'primary.main' }}>Wishlist</Typography>
         <Box component="form" id="wishlist-form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
