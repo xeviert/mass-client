@@ -185,6 +185,7 @@ export default function Footer() {
             href="https://github.com/xeviert"
             aria-label="GitHub"
             sx={{ alignSelf: 'center' }}
+            target="_blank"
           >
             <FacebookIcon />
           </IconButton>
@@ -193,6 +194,7 @@ export default function Footer() {
             href="https://twitter.com/Xevier_T"
             aria-label="X"
             sx={{ alignSelf: 'center' }}
+            target="_blank"
           >
             <TwitterIcon />
           </IconButton>
@@ -201,6 +203,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/xevierturrubiartes/"
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
+            target="_blank"
           >
             <LinkedInIcon />
           </IconButton>
