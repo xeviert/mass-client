@@ -1,50 +1,52 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
 import { Container, Button, Box, Grid, Checkbox, TextField, Typography, FormControlLabel } from '@mui/material';
 
-export default class Home extends Component {
-  state = {
-    order_items: {},
-    checked_items: {},
-    location: "",
-  };
+const Home = () => {
+  const [orderItems, setOrderItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState({});
+  const [location, setLocation] = useState("");
+  const [error, setError] = useState(null);
 
-  handleChange(e) {
-    this.setState({
-      order_items: { ...this.state.order_items, [e.target.name]: e.target.value },
+  const handleChange = (e) => {
+    setOrderItems({
+      ...orderItems,
+      [e.target.name]: e.target.value,
     });
-  }
-
-  toggleItemInList = (itemId) => {
-    const { order_items, checked_items } = this.state;
-
-    if (checked_items[itemId]) {
-      delete order_items[itemId];
-      delete checked_items[itemId];
-      this.setState({ order_items, checked_items });
-    } else {
-      this.setState({
-        checked_items: { ...checked_items, [itemId]: true },
-        order_items: { ...order_items, [itemId]: 0 },
-      });
-    }
   };
 
-  updateQuantityOfItem = (itemId, quantity) => {
+  const toggleItemInList = (itemId) => {
+    const newCheckedItems = { ...checkedItems };
+    const newOrderItems = { ...orderItems };
+
+    if (newCheckedItems[itemId]) {
+      delete newCheckedItems[itemId];
+      delete newOrderItems[itemId];
+    } else {
+      newCheckedItems[itemId] = true;
+      newOrderItems[itemId] = 0;
+    }
+
+    setCheckedItems(newCheckedItems);
+    setOrderItems(newOrderItems);
+  };
+
+  const updateQuantityOfItem = (itemId, quantity) => {
     const parsedQuantity = parseInt(quantity, 10);
     if (!isNaN(parsedQuantity)) {
-      this.setState({
-        order_items: { ...this.state.order_items, [itemId]: parsedQuantity },
+      setOrderItems({
+        ...orderItems,
+        [itemId]: parsedQuantity,
       });
     }
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const order = {
-      location: this.state.location,
-      order_items: this.state.order_items,
+      location,
+      order_items: orderItems,
     };
 
     fetch(`${config.API_ENDPOINT}/orders`, {
@@ -60,28 +62,26 @@ export default class Home extends Component {
         alert(
           "Thank you! Wishlist has been submitted. We will send out a text shortly to confirm when we will see you"
         );
-        this.setState({
-          location: "",
-          order_items: {},
-          checked_items: {},
-        });
-        this.resetForm();
+        setLocation("");
+        setOrderItems({});
+        setCheckedItems({});
+        resetForm();
       })
       .catch((e) => {
-        this.setState({ error: e.message });
+        setError(e.message);
       });
   };
 
-  resetForm() {
+  const resetForm = () => {
     const wishListForm = document.getElementById("wishlist-form");
     wishListForm.reset();
-  }
-
-  setLocationOnChange = (location) => {
-    this.setState({ location });
   };
 
-  renderItemList = () => {
+  const setLocationOnChange = (location) => {
+    setLocation(location);
+  };
+
+  const renderItemList = () => {
     const items = [
       { id: 1, name: "Snack Kit" },
       { id: 2, name: "Socks and Underwear" },
@@ -112,7 +112,7 @@ export default class Home extends Component {
                   control={
                     <Checkbox
                       value={item.id}
-                      onChange={() => this.toggleItemInList(item.id)}
+                      onChange={() => toggleItemInList(item.id)}
                     />
                   }
                   label={<Typography variant="body1">{item.name}</Typography>}
@@ -124,10 +124,10 @@ export default class Home extends Component {
                   <TextField
                     type="number"
                     inputProps={{ min: 0, max: 20 }}
-                    disabled={!this.state.checked_items[item.id]}
-                    value={this.state.order_items[item.id] || ""}
+                    disabled={!checkedItems[item.id]}
+                    value={orderItems[item.id] || ""}
                     onChange={(e) =>
-                      this.updateQuantityOfItem(item.id, e.target.value)
+                      updateQuantityOfItem(item.id, e.target.value)
                     }
                     size="small"
                   />
@@ -140,33 +140,32 @@ export default class Home extends Component {
     );
   };
 
-  render() {
-    return (
-      <Container sx={{ mt: 12 }}>
-        <Box sx={{ width: '100%', maxWidth: '900px', mx: 'auto', mb: '10vh', mt: '4vh' }}>
-          <Typography variant="h2" sx={{ mb: 4, color: 'primary.main' }}>Wishlist</Typography>
-          <Box component="form" onSubmit={(e) => this.handleSubmit(e)} noValidate sx={{ mt: 1 }}>
-            <Typography variant="h6">Location/Address:</Typography>
-            <TextField
-              fullWidth
-              variant="outlined"
-              margin="normal"
-              // value={location}
-              onChange={(e) => this.setLocationOnChange(e.target.value)}
-              required
-            />
-            {this.renderItemList()}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Submit List
-            </Button>
-          </Box>
+  return (
+    <Container sx={{ mt: 12 }}>
+      <Box sx={{ width: '100%', maxWidth: '900px', mx: 'auto', mb: '10vh', mt: '4vh' }}>
+        <Typography variant="h2" sx={{ mb: 4, color: 'primary.main' }}>Wishlist</Typography>
+        <Box component="form" id="wishlist-form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Typography variant="h6">Location/Address:</Typography>
+          <TextField
+            fullWidth
+            variant="outlined"
+            margin="normal"
+            onChange={(e) => setLocationOnChange(e.target.value)}
+            required
+          />
+          {renderItemList()}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Submit List
+          </Button>
         </Box>
-      </Container>
-    );
-  }
+      </Box>
+    </Container>
+  );
 }
+
+export default Home;

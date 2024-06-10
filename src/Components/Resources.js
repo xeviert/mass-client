@@ -12,9 +12,9 @@ const Resources = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <Container sx={{ mt: 14, mb: 4 }}>
+      <Container sx={{ mt: 20, mb: 4 }}>
         <Box sx={{ width: '100%', maxWidth: '1200px', mx: 'auto', mb: '10vh' }}>
-          <Typography variant="h2" sx={{ mb: 4, color: 'primary.main' }}>
+          <Typography variant="h2" sx={{ mb: 4, color: 'primary.main', textAlign: 'center' }}>
             Shared Resources
           </Typography>
           <Typography variant="body1" sx={{ mb: 4 }}>
