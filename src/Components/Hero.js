@@ -39,7 +39,7 @@ export default function Hero() {
               fontSize: 'clamp(3.5rem, 10vw, 4rem)',
             }}
           >
-            Our latest&nbsp;
+            Empowering&nbsp;
             <Typography
               component="span"
               variant="h1"
@@ -48,17 +48,16 @@ export default function Hero() {
                 color: 'primary.main',
               }}
             >
-              products
+              Communities
             </Typography>
           </Typography>
           <Typography
             textAlign="center"
             color="text.secondary"
-            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
+            sx={{ alignSelf: 'center', width: { sm: '100%', md: '90%' } }}
           >
-            Explore our cutting-edge dashboard, delivering high-quality solutions
-            tailored to your needs. Elevate your experience with top-tier features
-            and services.
+            Discover our platform designed for mutual aid and community support.
+            We're committed to linking individuals with essential resources and enhancing the power of community-driven assistance.
           </Typography>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}

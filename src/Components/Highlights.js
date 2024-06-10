@@ -15,39 +15,39 @@ import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
 const items = [
   {
     icon: <SettingsSuggestRoundedIcon />,
-    title: 'Adaptable performance',
+    title: 'Flexible Assistance',
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
+      'Our platform adapts to the diverse needs of the community, enhancing efficiency and simplifying the process of giving and receiving aid.',
   },
   {
     icon: <ConstructionRoundedIcon />,
-    title: 'Built to last',
+    title: 'Reliable Support Network',
     description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
+      'Experience unparalleled reliability with a system designed to support long-term mutual aid efforts, ensuring that help is always available when needed.',
   },
   {
     icon: <ThumbUpAltRoundedIcon />,
-    title: 'Great user experience',
+    title: 'User-Friendly Interface',
     description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
+      'Easily navigate our platform with an intuitive interface that integrates seamlessly into your routine, making it simple to request or offer assistance.',
   },
   {
     icon: <AutoFixHighRoundedIcon />,
-    title: 'Innovative functionality',
+    title: 'Innovative Community Features',
     description:
       'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
   },
   {
     icon: <SupportAgentRoundedIcon />,
-    title: 'Reliable support',
+    title: 'Responsive Community Support',
     description:
-      'Count on our responsive customer support, offering assistance that goes beyond the purchase.',
+      'Rely on our responsive support network, offering assistance that goes beyond mere transactions, fostering a sense of solidarity and shared purpose.',
   },
   {
     icon: <QueryStatsRoundedIcon />,
-    title: 'Precision in every detail',
+    title: 'Precision and Care',
     description:
-      'Enjoy a meticulously crafted product where small touches make a significant impact on your overall experience.',
+      'Enjoy a meticulously organized platform where every detail is crafted to enhance your experience and maximize the impact of your contributions.',
   },
 ];
 
@@ -81,9 +81,8 @@ export default function Highlights() {
             Highlights
           </Typography>
           <Typography variant="body1" sx={{ color: 'grey.400' }}>
-            Explore why our product stands out: adaptability, durability,
-            user-friendly design, and innovation. Enjoy reliable customer support and
-            precision in every detail.
+            Discover what makes our mutual aid platform exceptional: flexibility, reliability, user-friendly design, and impactful support.
+            Benefit from a community-driven approach and meticulous organization.
           </Typography>
         </Box>
         <Grid container spacing={2.5}>
