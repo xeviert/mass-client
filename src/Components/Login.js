@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -27,24 +27,29 @@ function Copyright(props) {
   );
 }
 
-const Login = ({ onLoginSuccess = () => { } }) => {
+const Login = () => {
   const [error, setError] = useState(null);
   const [phone_number, setPhoneNumber] = useState("");
   const context = useContext(AppContext);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (context.user.role) {
+      pushUserDependingOnRole();
+    }
+  }, [context.user]);
+
   const handleLogin = (ev) => {
     ev.preventDefault();
     setError(null);
 
-    const password = ev.target.password.value; // Get password value directly
-    const user = { phone_number: phone_number, password: password }; // Use state value for phone_number
+    const password = ev.target.password.value;
+    const user = { phone_number: phone_number, password: password };
     AuthApiService.postLogin(user)
       .then((res) => {
-        setPhoneNumber(""); // Clear state
-        ev.target.password.value = ""; // Clear password input
+        setPhoneNumber("");
+        ev.target.password.value = "";
         context.processLogin(res.authToken);
-        pushUserDependingOnRole();
       })
       .catch((res) => setError(res.error));
   };

@@ -15,25 +15,26 @@ import getLPTheme from './getLPTheme';
 import "./App.css";
 
 export function App() {
-  const [mode, setMode] = React.useState('light');
+  const [mode, setMode] = useState('light');
   const [showCustomTheme, setShowCustomTheme] = useState(true);
   const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
+  const location = useLocation();
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
-      {location.pathname !== "/admin" && <NavBar mode={mode} toggleColorMode={toggleColorMode} />}
+      {!isAdminRoute && <NavBar mode={mode} toggleColorMode={toggleColorMode} />}
       <Routes>
-        <Route path="/admin" element={<PrivateRoute element={<Admin />} />} />
+        <Route path="/" element={<PrivateRoute element={Home} />} />
+        <Route path="/admin" element={<PrivateRoute element={Admin} adminOnly />} />
         <Route path="/about" element={<LandingPage />} />
         <Route path="/resources" element={<Resources />} />
-        <Route path="/" element={<PrivateRoute element={<Home />} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
       </Routes>

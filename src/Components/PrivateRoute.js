@@ -1,17 +1,19 @@
-import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
-import { AppContext } from "../AppContext";
+import React, { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
+import { AppContext } from '../AppContext';
 
-export default function PrivateRoute({ element }) {
+const PrivateRoute = ({ element: Component, adminOnly = false }) => {
   const { user } = useContext(AppContext);
-  if (user.id) {
-    return element;
+
+  if (!user.id) {
+    return <Navigate to="/login" />;
   }
-  return (
-    <Navigate
-      to={{
-        pathname: user.idle ? "/login" : "/about",
-      }}
-    />
-  );
-}
+
+  if (adminOnly && user.role !== 'admin') {
+    return <Navigate to="/" />;
+  }
+
+  return <Component />;
+};
+
+export default PrivateRoute;

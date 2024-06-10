@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AppBar, Box, Toolbar, Button, Container, Typography, MenuItem, Drawer, Divider } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { AppContext } from '../AppContext';
-import ToggleColorMode from './ToggleColorMode';
 
 const logoStyle = {
   width: '120px',
@@ -14,7 +12,7 @@ const logoStyle = {
   cursor: 'pointer',
 };
 
-function NavBar({ mode, toggleColorMode }) {
+function NavBar({ mode }) {
   const [open, setOpen] = React.useState(false);
   const { user, processLogout } = useContext(AppContext);
 
@@ -115,7 +113,6 @@ function NavBar({ mode, toggleColorMode }) {
                 alignItems: 'center',
               }}
             >
-              <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
               {user && user.id ? (
                 <Button
                   color="primary"
@@ -175,7 +172,6 @@ function NavBar({ mode, toggleColorMode }) {
                       flexGrow: 1,
                     }}
                   >
-                    <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
                   </Box>
                   <MenuItem component={Link} to='/about'>
                     About
@@ -234,10 +230,5 @@ function NavBar({ mode, toggleColorMode }) {
     </div>
   );
 }
-
-NavBar.propTypes = {
-  mode: PropTypes.oneOf(['dark', 'light']).isRequired,
-  toggleColorMode: PropTypes.func.isRequired,
-};
 
 export default NavBar;
