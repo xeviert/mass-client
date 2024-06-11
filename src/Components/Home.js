@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
-import { Container, Button, Box, Grid, Checkbox, TextField, Typography, FormControlLabel } from '@mui/material';
+import { Container, Button, Box, Grid, Switch, TextField, Typography, FormControlLabel } from '@mui/material';
 
 const Home = () => {
   const [orderItems, setOrderItems] = useState({});
@@ -81,64 +81,27 @@ const Home = () => {
     setLocation(location);
   };
 
-  const renderItemList = () => {
-    const items = [
-      { id: 1, name: "Snack Kit" },
-      { id: 2, name: "Socks and Underwear" },
-      { id: 3, name: "Walking Shoes" },
-      { id: 4, name: "Pads/Tampons" },
-      { id: 5, name: "First Aid Kit" },
-      { id: 6, name: "Dental Care Kit" },
-      { id: 7, name: "Deodorant and Soap" },
-      { id: 8, name: "Earplugs" },
-      { id: 9, name: "Face Mask, Sanitizer, Gloves" },
-      { id: 10, name: "Blanket" },
-      { id: 11, name: "Diapers, Wipes, Baby Clothes" },
-      { id: 12, name: "Baby Formula" },
-      { id: 13, name: "School Supplies" },
-      { id: 14, name: "Notepad and Pens" },
-      { id: 15, name: "Hat, Mittens, Scarf" },
-      { id: 16, name: "Sweater/Jacket" },
-      { id: 17, name: "Narcan/Naloxone" },
-    ];
+  const items = [
+    { id: 1, name: "Snack Kit" },
+    { id: 2, name: "Socks and Underwear" },
+    { id: 3, name: "Walking Shoes" },
+    { id: 4, name: "Pads/Tampons" },
+    { id: 5, name: "First Aid Kit" },
+    { id: 6, name: "Dental Care Kit" },
+    { id: 7, name: "Deodorant and Soap" },
+    { id: 8, name: "Earplugs" },
+    { id: 9, name: "Face Mask, Sanitizer, Gloves" },
+    { id: 10, name: "Blanket" },
+    { id: 11, name: "Diapers, Wipes, Baby Clothes" },
+    { id: 12, name: "Baby Formula" },
+    { id: 13, name: "School Supplies" },
+    { id: 14, name: "Notepad and Pens" },
+    { id: 15, name: "Hat, Mittens, Scarf" },
+    { id: 16, name: "Sweater/Jacket" },
+    { id: 17, name: "Narcan/Naloxone" },
+  ];
 
-    return (
-      <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', mt: 2 }}>
-        {items.map((item) => (
-          <Box key={item.id} sx={{ marginBottom: '20px' }}>
-            <Grid container alignItems="center">
-              <Grid item xs={12} sm={6}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      value={item.id}
-                      onChange={() => toggleItemInList(item.id)}
-                    />
-                  }
-                  label={<Typography variant="body1">{item.name}</Typography>}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Box display="flex" alignItems="center">
-                  <Typography variant="body2" sx={{ marginRight: '10px' }}>Quantity</Typography>
-                  <TextField
-                    type="number"
-                    inputProps={{ min: 0, max: 20 }}
-                    disabled={!checkedItems[item.id]}
-                    value={orderItems[item.id] || ""}
-                    onChange={(e) =>
-                      updateQuantityOfItem(item.id, e.target.value)
-                    }
-                    size="small"
-                  />
-                </Box>
-              </Grid>
-            </Grid>
-          </Box>
-        ))}
-      </Box>
-    );
-  };
+
 
   return (
     <Container sx={{ mt: 16 }}>
@@ -153,7 +116,43 @@ const Home = () => {
             onChange={(e) => setLocationOnChange(e.target.value)}
             required
           />
-          {renderItemList()}
+
+          <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', mt: 2 }}>
+            {items.map((item) => (
+              <Box key={item.id} sx={{ marginBottom: '20px' }}>
+                <Grid container alignItems="center">
+                  <Grid item xs={2}>
+                    <Switch
+                      checked={!!checkedItems[item.id]}
+                      onChange={() => toggleItemInList(item.id)}
+                      color="primary"
+                    />
+                  </Grid>
+                  <Grid item xs={5} sx={{ textAlign: 'center' }}>
+                    <Typography variant="body1">{item.name}</Typography>
+                  </Grid>
+                  <Grid item xs={1}>
+                    <Box display="flex" alignItems="center">
+                      <Typography variant="body2" sx={{ marginRight: '5px' }}>Quantity</Typography>
+                      <TextField
+                        type="number"
+                        inputProps={{ min: 0, max: 20 }}
+                        disabled={!checkedItems[item.id]}
+                        value={orderItems[item.id] || ""}
+                        onChange={(e) =>
+                          updateQuantityOfItem(item.id, e.target.value)
+                        }
+                        size="small"
+                        sx={{ width: '60px' }}
+
+                      />
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Box>
+            ))}
+          </Box>
+
           <Button
             type="submit"
             fullWidth
