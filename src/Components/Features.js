@@ -19,21 +19,21 @@ const items = [
     title: 'Wish List Requests',
     description:
       'Users can easily request needed items through their phone number and location/address.',
-    image: 'url("/static/images/templates/templates-images/mobile-light.png")',
+    image: 'url("images/listchoose.png")',
   },
   {
     icon: <ViewQuiltRoundedIcon />,
     title: 'Admin Management',
     description:
       'Admins track and fulfill requests efficiently. Using the phone number as a point of contact without keeping personal details.',
-    image: 'url("/static/images/templates/templates-images/dash-light.png")',
+    image: 'url("images/adminportal.png")',
   },
   {
     icon: <DevicesRoundedIcon />,
     title: 'Donor Portal:',
     description:
       '(Coming Soon) Donors can view current needs and surplus items, allowing them to contribute effectively and prioritize in-demand resources.',
-    image: 'url("/static/images/templates/templates-images/devices-light.png")',
+    image: 'url("images/donor2.png")',
   },
 ];
 
@@ -90,12 +90,14 @@ export default function Features() {
           >
             <Box
               sx={{
-                backgroundImage: items[selectedItemIndex].image,
+                backgroundImage: `url(${items[selectedItemIndex].image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
                 minHeight: 280,
               }}
             />
+
             <Box sx={{ px: 2, pb: 2 }}>
               <Typography color="text.primary" variant="body2" fontWeight="bold">
                 {selectedFeature.title}
@@ -230,6 +232,8 @@ export default function Features() {
                 height: 500,
                 backgroundSize: 'contain',
                 backgroundImage: items[selectedItemIndex].image,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
               }}
             />
           </Card>
