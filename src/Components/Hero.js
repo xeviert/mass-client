@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { alpha } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -7,8 +8,29 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useSnackbar } from 'notistack';
 
 export default function Hero() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleInputChange = (e) => {
+    setEmail(e.target.value);
+    setError(false);
+  };
+
+  const handleSubmit = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailPattern.test(email)) {
+      enqueueSnackbar('Email subscribed successfully!', { variant: 'success' });
+      setEmail('');
+    } else {
+      setError(true);
+      enqueueSnackbar('Please enter a valid email address', { variant: 'error' });
+    }
+  };
+
   return (
     <Box
       id="hero"
@@ -73,12 +95,16 @@ export default function Hero() {
               variant="outlined"
               aria-label="Enter your email address"
               placeholder="Your email address"
+              value={email}
+              onChange={handleInputChange}
+              error={error}
+              helperText={error ? 'Please enter a valid email address' : ''}
               inputProps={{
                 autoComplete: 'off',
                 'aria-label': 'Enter your email address',
               }}
             />
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={handleSubmit}>
               Start now
             </Button>
           </Stack>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -6,6 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import { Typography, Link } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { useSnackbar } from 'notistack';
 
 import FacebookIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -30,6 +32,26 @@ function Copyright() {
 }
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState(false);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleInputChange = (e) => {
+    setEmail(e.target.value);
+    setError(false);
+  };
+
+  const handleSubmit = () => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (emailPattern.test(email)) {
+      enqueueSnackbar('Email subscribed successfully!', { variant: 'success' });
+      setEmail('');
+    } else {
+      setError(true);
+      enqueueSnackbar('Please enter a valid email address', { variant: 'error' });
+    }
+  };
+
   return (
     <Container
       sx={{
@@ -80,12 +102,16 @@ export default function Footer() {
                 fullWidth
                 aria-label="Enter your email address"
                 placeholder="Your email address"
+                value={email}
+                onChange={handleInputChange}
+                error={error}
+                helperText={error ? 'Please enter a valid email address' : ''}
                 inputProps={{
                   autoComplete: 'off',
                   'aria-label': 'Enter your email address',
                 }}
               />
-              <Button variant="contained" color="primary" sx={{ flexShrink: 0 }}>
+              <Button variant="contained" color="primary" sx={{ flexShrink: 0 }} onClick={handleSubmit}>
                 Subscribe
               </Button>
             </Stack>
