@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
-import { Container, Button, Box, Grid, Switch, TextField, Typography, FormControlLabel } from '@mui/material';
+import { Container, Button, Box, Grid, Switch, TextField, Typography, FormControlLabel, InputAdornment } from '@mui/material';
+
 
 const Home = () => {
   const [orderItems, setOrderItems] = useState({});
@@ -117,36 +118,37 @@ const Home = () => {
             required
           />
 
-          <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', mt: 2 }}>
+          <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', mt: 2, }}>
             {items.map((item) => (
               <Box key={item.id} sx={{ marginBottom: '20px' }}>
-                <Grid container alignItems="center">
+                <Grid container alignItems="center" spacing={12}>
                   <Grid item xs={2}>
                     <Switch
                       checked={!!checkedItems[item.id]}
                       onChange={() => toggleItemInList(item.id)}
                       color="primary"
+                      sx={{ marginLeft: '12px' }}
                     />
                   </Grid>
-                  <Grid item xs={5} sx={{ textAlign: 'center' }}>
-                    <Typography variant="body1">{item.name}</Typography>
+                  <Grid item xs={5} sx={{ textAlign: 'left', marginLeft: '12px' }}>
+                    <Typography variant="body1"
+                      sx={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.name}</Typography>
                   </Grid>
-                  <Grid item xs={1}>
-                    <Box display="flex" alignItems="center">
-                      <Typography variant="body2" sx={{ marginRight: '5px' }}>Quantity</Typography>
-                      <TextField
-                        type="number"
-                        inputProps={{ min: 0, max: 20 }}
-                        disabled={!checkedItems[item.id]}
-                        value={orderItems[item.id] || ""}
-                        onChange={(e) =>
-                          updateQuantityOfItem(item.id, e.target.value)
-                        }
-                        size="small"
-                        sx={{ width: '60px' }}
-
-                      />
-                    </Box>
+                  <Grid item xs>
+                    <TextField
+                      type="number"
+                      inputProps={{ min: 0, max: 10 }}
+                      disabled={!checkedItems[item.id]}
+                      value={orderItems[item.id] || ""}
+                      onChange={(e) =>
+                        updateQuantityOfItem(item.id, e.target.value)
+                      }
+                      size="small"
+                      sx={{ width: '10px' }}
+                      InputProps={{
+                        startAdornment: <InputAdornment position="start">Qty</InputAdornment>,
+                      }}
+                    />
                   </Grid>
                 </Grid>
               </Box>
