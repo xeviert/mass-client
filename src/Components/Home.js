@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
-import { Container, Button, Box, Grid, Switch, TextField, Typography, FormControlLabel, InputAdornment } from '@mui/material';
-
+import {
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBCheckbox,
+  MDBCol,
+  MDBContainer,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBRow,
+  MDBInput
+} from "mdb-react-ui-kit";
 
 const Home = () => {
   const [orderItems, setOrderItems] = useState({});
@@ -10,12 +20,12 @@ const Home = () => {
   const [location, setLocation] = useState("");
   const [error, setError] = useState(null);
 
-  const handleChange = (e) => {
-    setOrderItems({
-      ...orderItems,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleChange = (e) => {
+  //   setOrderItems({
+  //     ...orderItems,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const toggleItemInList = (itemId) => {
     const newCheckedItems = { ...checkedItems };
@@ -102,70 +112,75 @@ const Home = () => {
     { id: 17, name: "Narcan/Naloxone" },
   ];
 
-
-
   return (
-    <Container sx={{ mt: 16 }}>
-      <Box sx={{ width: '100%', maxWidth: '900px', mx: 'auto', mb: '10vh', mt: '4vh' }}>
-        <Typography variant="h2" sx={{ mb: 4, color: 'primary.main' }}>Wishlist</Typography>
-        <Box component="form" id="wishlist-form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-          <Typography variant="h6">Location/Address:</Typography>
-          <TextField
-            fullWidth
-            variant="outlined"
-            margin="normal"
-            onChange={(e) => setLocationOnChange(e.target.value)}
-            required
-          />
+    <MDBContainer className="py-5 h-100 mt-5">
+      <MDBRow className="d-flex justify-content-center align-items-center">
+        <MDBCol xl="10">
+          <MDBCard style={{ borderRadius: "15px" }}>
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+            >
+              <MDBCardBody className="p-5">
+                <h2 className="mb-5" style={{ color: '#00897b', fontWeight: '900' }}>Wishlist</h2>
+                <div className="d-flex justify-content-center align-items-center mb-4">
+                  <MDBInput
+                    type="text"
+                    id="form1"
+                    label="Location / Address:"
+                    wrapperClass="flex-fill"
+                    onChange={(e) => setLocationOnChange(e.target.value)}
+                    required
+                  />
+                </div>
 
-          <Box sx={{ padding: '20px', backgroundColor: '#f9f9f9', borderRadius: '8px', mt: 2, }}>
-            {items.map((item) => (
-              <Box key={item.id} sx={{ marginBottom: '20px' }}>
-                <Grid container alignItems="center" spacing={12}>
-                  <Grid item xs={2}>
-                    <Switch
-                      checked={!!checkedItems[item.id]}
-                      onChange={() => toggleItemInList(item.id)}
-                      color="primary"
-                      sx={{ marginLeft: '12px' }}
-                    />
-                  </Grid>
-                  <Grid item xs={5} sx={{ textAlign: 'left', marginLeft: '12px' }}>
-                    <Typography variant="body1"
-                      sx={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.name}</Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <TextField
-                      type="number"
-                      inputProps={{ min: 0, max: 10 }}
-                      disabled={!checkedItems[item.id]}
-                      value={orderItems[item.id] || ""}
-                      onChange={(e) =>
-                        updateQuantityOfItem(item.id, e.target.value)
-                      }
-                      size="small"
-                      sx={{ width: '10px' }}
-                      InputProps={{
-                        startAdornment: <InputAdornment position="start">Qty</InputAdornment>,
-                      }}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            ))}
-          </Box>
+                <MDBListGroup className="mb-0">
+                  {items.map((item) => (
+                    <MDBListGroupItem key={item.id} className="d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                      <div className="d-flex align-items-center w-50">
+                        <div style={{ width: '40%' }}>
+                          <MDBCheckbox
+                            name="flexCheck"
+                            id="flexCheckChecked"
+                            className="me-3"
+                            checked={!!checkedItems[item.id]}
+                            onChange={() => toggleItemInList(item.id)}
+                            color="primary"
+                          />
+                        </div>
+                        <div style={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {item.name}
+                        </div>
+                      </div>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Submit List
-          </Button>
-        </Box>
-      </Box>
-    </Container>
+                      <div style={{ width: '15%' }}>
+                        <MDBInput
+                          label="Qty"
+                          id="quantity"
+                          type="number"
+                          disabled={!checkedItems[item.id]}
+                          value={orderItems[item.id] || ""}
+                          onChange={(e) =>
+                            updateQuantityOfItem(item.id, e.target.value)
+                          }
+                          min={0}
+                          max={10}
+                          required
+                        />
+                      </div>
+                    </MDBListGroupItem>
+                  ))}
+                </MDBListGroup>
+
+                <MDBBtn type="submit" size="lg" className="ms-2">
+                  Add
+                </MDBBtn>
+              </MDBCardBody>
+            </form>
+          </MDBCard>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 }
 

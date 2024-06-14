@@ -10,6 +10,7 @@ import Login from "./Components/Login";
 import Admin from "./Components/Admin";
 import LandingPage from "./Components/LandingPage";
 import getLPTheme from './getLPTheme';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 
 import "./App.css";
 
