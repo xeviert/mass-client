@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   MDBBtn,
   MDBCard,
@@ -19,6 +21,9 @@ const Home = () => {
   const [checkedItems, setCheckedItems] = useState({});
   const [location, setLocation] = useState("");
   const [error, setError] = useState(null);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
 
   // const handleChange = (e) => {
   //   setOrderItems({
@@ -113,7 +118,7 @@ const Home = () => {
   ];
 
   return (
-    <MDBContainer className="py-5 h-100 mt-5">
+    <MDBContainer className={`py-5 h-100 mt-5 mb-4 ${isSmallScreen ? 'w-95' : 'w-60'}`} style={{ width: isSmallScreen ? '95%' : '60%' }}>
       <MDBRow className="d-flex justify-content-center align-items-center">
         <MDBCol xl="10">
           <MDBCard style={{ borderRadius: "15px" }}>
@@ -121,8 +126,10 @@ const Home = () => {
               onSubmit={handleSubmit}
               noValidate
             >
-              <MDBCardBody className="p-5">
-                <h2 className="mb-5" style={{ color: '#00897b', fontWeight: '900' }}>Wishlist</h2>
+              <MDBCardBody className={isSmallScreen ? 'p-2' : 'p-5'}>
+                <h2 className="mb-4" style={{ color: theme.palette.primary.main, fontWeight: '800' }}>
+                  Wishlist
+                </h2>
                 <div className="d-flex justify-content-center align-items-center mb-4">
                   <MDBInput
                     type="text"
@@ -137,8 +144,8 @@ const Home = () => {
                 <MDBListGroup className="mb-0">
                   {items.map((item) => (
                     <MDBListGroupItem key={item.id} className="d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
-                      <div className="d-flex align-items-center w-50">
-                        <div style={{ width: '40%' }}>
+                      <div className="d-flex align-items-center w-75">
+                        <div style={{ width: '30%' }}>
                           <MDBCheckbox
                             name="flexCheck"
                             id="flexCheckChecked"
@@ -148,7 +155,7 @@ const Home = () => {
                             color="primary"
                           />
                         </div>
-                        <div style={{ maxWidth: '300px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                        <div style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {item.name}
                         </div>
                       </div>
@@ -172,7 +179,7 @@ const Home = () => {
                   ))}
                 </MDBListGroup>
 
-                <MDBBtn type="submit" size="lg" className="ms-2">
+                <MDBBtn type="submit" size="lg" className="ms-2 mt-4" style={{ backgroundColor: theme.palette.primary.main }}>
                   Add
                 </MDBBtn>
               </MDBCardBody>

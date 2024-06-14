@@ -67,7 +67,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-
 export default function Dashboard() {
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -112,7 +111,6 @@ export default function Dashboard() {
             variant="contained"
             size="small"
             onClick={handleLogoutClick}
-
           >
             Logout
           </Button>
@@ -141,10 +139,7 @@ export default function Dashboard() {
       <Box
         component="main"
         sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
+          backgroundColor: '#EAF0F5',
           flexGrow: 1,
           height: '100vh',
           overflow: 'auto',
@@ -153,7 +148,6 @@ export default function Dashboard() {
         <Toolbar />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
           <Grid container spacing={3}>
-            {/* Recent Orders */}
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff' }}>
                 <Orders />

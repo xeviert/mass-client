@@ -61,7 +61,7 @@ const Login = () => {
         sx={{
           backgroundImage: 'url(images/login.png)',
           backgroundRepeat: 'no-repeat',
-          backgroundColor: 'grey.100',
+          backgroundColor: 'grey.50',
           backgroundSize: '80%',
           backgroundPosition: 'center',
           display: 'flex',
