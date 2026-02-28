@@ -1,6 +1,5 @@
-import * as React from 'react';
-import { useState, useContext, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,12 +10,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 
 import PhoneNumberInput from './PhoneNumberInput';
-import AuthApiService from "../Service/auth-api-service";
-import { AppContext } from "../AppContext";
+import AuthApiService from '../Service/auth-api-service';
+import { AppContext } from '../AppContext';
 
 const Login = () => {
   const [error, setError] = useState(null);
-  const [phone_number, setPhoneNumber] = useState("");
+  const [phone_number, setPhoneNumber] = useState('');
   const context = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -34,8 +33,8 @@ const Login = () => {
     const user = { phone_number: phone_number, password: password };
     AuthApiService.postLogin(user)
       .then((res) => {
-        setPhoneNumber("");
-        ev.target.password.value = "";
+        setPhoneNumber('');
+        ev.target.password.value = '';
         context.processLogin(res.authToken);
       })
       .catch((res) => setError(res.error));
@@ -44,15 +43,15 @@ const Login = () => {
   const pushUserDependingOnRole = () => {
     const { user } = context;
 
-    if (user.role === "admin") {
-      navigate("/admin");
+    if (user.role === 'admin') {
+      navigate('/admin');
     } else {
-      navigate("/");
+      navigate('/');
     }
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component='main' sx={{ height: '100vh' }}>
       <Grid
         item
         xs={false}
@@ -62,7 +61,7 @@ const Login = () => {
           backgroundImage: 'url(images/login.png)',
           backgroundRepeat: 'no-repeat',
           backgroundColor: 'grey.50',
-          backgroundSize: '80%',
+          // backgroundSize: '80%',
           backgroundPosition: 'center',
           display: 'flex',
           flexDirection: 'column',
@@ -75,26 +74,46 @@ const Login = () => {
             backgroundColor: 'rgba(255, 255, 255, 0.8)',
             padding: 2,
             borderRadius: 2,
-            width: '30%'
           }}
         >
-          <Typography variant="h6" sx={{ mb: 2, textAlign: 'center' }}>
+          <Typography variant='h6' sx={{ mb: 2, textAlign: 'center' }}>
             DEMO CREDENTIALS:
           </Typography>
           <Box sx={{ mb: 3 }}>
-            <Typography variant="body1"><strong>Role:</strong> Admin</Typography>
-            <Typography variant="body1"><strong>Phone Number:</strong> (713) 584-1234</Typography>
-            <Typography variant="body1"><strong>Password:</strong> pass</Typography>
+            <Typography variant='body1'>
+              <strong>Role:</strong> Admin
+            </Typography>
+            <Typography variant='body1'>
+              <strong>Phone Number:</strong> (713) 584-1234
+            </Typography>
+            <Typography variant='body1'>
+              <strong>Password:</strong> pass
+            </Typography>
           </Box>
           <Box>
-            <Typography variant="body1"><strong>Role:</strong> User</Typography>
-            <Typography variant="body1"><strong>Phone Number:</strong> (512) 555-1234</Typography>
-            <Typography variant="body1"><strong>Password:</strong> pass</Typography>
+            <Typography variant='body1'>
+              <strong>Role:</strong> User
+            </Typography>
+            <Typography variant='body1'>
+              <strong>Phone Number:</strong> (512) 555-1234
+            </Typography>
+            <Typography variant='body1'>
+              <strong>Password:</strong> pass
+            </Typography>
           </Box>
         </Box>
       </Grid>
 
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square sx={{ bgcolor: 'white' }}>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        square
+        sx={{ bgcolor: 'white' }}
+      >
         <Box
           sx={{
             my: 8,
@@ -102,43 +121,49 @@ const Login = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            mt: 20
+            mt: 20,
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+          <Box
+            component='form'
+            noValidate
+            onSubmit={handleLogin}
+            sx={{ mt: 1 }}
+          >
             <PhoneNumberInput
               value={phone_number}
               onChange={setPhoneNumber}
               placeholder=' enter phone #'
               name='phone_number'
-              required />
+              required
+            />
             <TextField
-              margin="normal"
+              margin='normal'
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name='password'
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='current-password'
               required
             />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
+              variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
-            <Grid container justifyContent="center">
+            <Grid container justifyContent='center'>
               <Grid item>
-                <Link to='/register' variant="body2">
+                <Link to='/register' variant='body2'>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -148,6 +173,6 @@ const Login = () => {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default Login;
