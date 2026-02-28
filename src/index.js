@@ -1,24 +1,29 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import CssBaseline from '@mui/material/CssBaseline';
+import { SnackbarProvider } from 'notistack';
+
 import "./index.css";
 
 import { AppProvider } from "./AppContext";
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
-    <Router>
-      <AppProvider>
-        <App />
-      </AppProvider>
-    </Router>
+    <CssBaseline />
+    <SnackbarProvider maxSnack={3}>
+      <Router>
+        <AppProvider>
+          <App />
+        </AppProvider>
+      </Router>
+    </SnackbarProvider>
   </React.StrictMode>,
-  document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

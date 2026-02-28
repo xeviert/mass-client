@@ -1,31 +1,37 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Routes, Route, useLocation } from "react-router-dom";
 import NavBar from "./Components/NavBar";
-import About from "./Components/About";
 import Home from "./Components/Home";
 import Resources from "./Components/Resources";
-import Footer from "./Components/Footer";
 import PrivateRoute from "./Components/PrivateRoute";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Admin from "./Components/Admin";
+import LandingPage from "./Components/LandingPage";
+import getLPTheme from './getLPTheme';
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 
 import "./App.css";
 
 export function App() {
+  const LPtheme = createTheme(getLPTheme());
+  const location = useLocation();
+
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
   return (
-    <>
-      <NavBar />
-      <Switch>
-        <PrivateRoute path='/admin' component={Admin} />
-        <Route path='/about' component={About} />
-        <Route path='/resources' component={Resources} />
-        <PrivateRoute path='/' exact component={Home} />
-        <Route path='/register' component={Register} />
-        <Route path='/login' component={Login} />
-      </Switch>
-      <Footer />
-    </>
+    <ThemeProvider theme={LPtheme}>
+      {!isAdminRoute && <NavBar />}
+      <Routes>
+        <Route path="/" element={<PrivateRoute element={Home} />} />
+        <Route path="/admin" element={<PrivateRoute element={Admin} adminOnly />} />
+        <Route path="/about" element={<LandingPage />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

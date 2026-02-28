@@ -1,44 +1,68 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import config from "../config";
 import TokenService from "../Service/token-service";
-import "./Styling/Home.css";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import {
+  MDBBtn,
+  MDBCard,
+  MDBCardBody,
+  MDBCheckbox,
+  MDBCol,
+  MDBContainer,
+  MDBListGroup,
+  MDBListGroupItem,
+  MDBRow,
+  MDBInput
+} from "mdb-react-ui-kit";
 
-export default class Home extends Component {
-  state = {
-    order_items: {},
-    location: "",
+const Home = () => {
+  const [orderItems, setOrderItems] = useState({});
+  const [checkedItems, setCheckedItems] = useState({});
+  const [location, setLocation] = useState("");
+  const [error, setError] = useState(null);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
+
+  // const handleChange = (e) => {
+  //   setOrderItems({
+  //     ...orderItems,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
+  const toggleItemInList = (itemId) => {
+    const newCheckedItems = { ...checkedItems };
+    const newOrderItems = { ...orderItems };
+
+    if (newCheckedItems[itemId]) {
+      delete newCheckedItems[itemId];
+      delete newOrderItems[itemId];
+    } else {
+      newCheckedItems[itemId] = true;
+      newOrderItems[itemId] = 0;
+    }
+
+    setCheckedItems(newCheckedItems);
+    setOrderItems(newOrderItems);
   };
 
-  // handleChange(e) {
-  //   this.setState({
-  //     order_items: { ...this.state.order_items, [e.target.name]: e.target.value },
-  //   });
-  // }
-
-  toggleItemInList = (itemId) => {
-    const { order_items } = this.state;
-
-    if (order_items[itemId]) {
-      delete order_items[itemId];
-      this.setState({ order_items });
-    } else {
-      this.setState({
-        order_items: { ...this.state.order_items, [itemId]: 0 },
+  const updateQuantityOfItem = (itemId, quantity) => {
+    const parsedQuantity = parseInt(quantity, 10);
+    if (!isNaN(parsedQuantity)) {
+      setOrderItems({
+        ...orderItems,
+        [itemId]: parsedQuantity,
       });
     }
   };
 
-  updateQuantityOfItem = (itemId, quantity) => {
-    this.setState({
-      order_items: { ...this.state.order_items, [itemId]: quantity },
-    });
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const order = {
-      location: this.state.location,
-      order_items: this.state.order_items,
+      location,
+      order_items: orderItems,
     };
 
     fetch(`${config.API_ENDPOINT}/orders`, {
@@ -54,421 +78,124 @@ export default class Home extends Component {
         alert(
           "Thank you! Wishlist has been submitted. We will send out a text shortly to confirm when we will see you"
         );
-        this.setState({
-          location: "",
-          order_items: {},
-        });
-        this.resetForm();
+        setLocation("");
+        setOrderItems({});
+        setCheckedItems({});
+        resetForm();
       })
       .catch((e) => {
-        this.setState({ error: e.message });
+        setError(e.message);
       });
   };
 
-  resetForm() {
+  const resetForm = () => {
     const wishListForm = document.getElementById("wishlist-form");
     wishListForm.reset();
-  }
-
-  setLocationOnChange = (location) => {
-    this.setState({ location });
   };
 
-  render() {
-    return (
-      <div>
-        <div>
-          <div id='home-body'>
-            <h2>Wishlist</h2>
-            <form onSubmit={(e) => this.handleSubmit(e)} id='wishlist-form'>
-              <label id='location'>
-                Location/Address:
-                <br />
-                <input
-                  type='text'
-                  maxLength='50'
-                  id='location-input'
-                  onChange={(e) => this.setLocationOnChange(e.target.value)}
-                  required
-                />
-              </label>
+  const setLocationOnChange = (location) => {
+    setLocation(location);
+  };
 
-            <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='1'
-                  onChange={() => this.toggleItemInList(1)}
-                />
-                <div className='item-text'>Snack Kit</div>
-              </label>
+  const items = [
+    { id: 1, name: "Snack Kit" },
+    { id: 2, name: "Socks and Underwear" },
+    { id: 3, name: "Walking Shoes" },
+    { id: 4, name: "Pads/Tampons" },
+    { id: 5, name: "First Aid Kit" },
+    { id: 6, name: "Dental Care Kit" },
+    { id: 7, name: "Deodorant and Soap" },
+    { id: 8, name: "Earplugs" },
+    { id: 9, name: "Face Mask, Sanitizer, Gloves" },
+    { id: 10, name: "Blanket" },
+    { id: 11, name: "Diapers, Wipes, Baby Clothes" },
+    { id: 12, name: "Baby Formula" },
+    { id: 13, name: "School Supplies" },
+    { id: 14, name: "Notepad and Pens" },
+    { id: 15, name: "Hat, Mittens, Scarf" },
+    { id: 16, name: "Sweater/Jacket" },
+    { id: 17, name: "Narcan/Naloxone" },
+  ];
 
-              <label className='quantity-label-and-input'>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(1, e.target.value)}
-                  />
-              </label>
-            </div>
+  return (
+    <div style={{
+      backgroundColor: '#FBFCFE',
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
+    }}>
+      <MDBContainer className={`py-5 h-100 mt-5 mb-4 ${isSmallScreen ? 'w-95' : 'w-60'}`} style={{ width: isSmallScreen ? '95%' : '60%' }}>
+        <MDBRow className="d-flex justify-content-center align-items-center">
+          <MDBCol xl="10">
+            <MDBCard style={{ borderRadius: "15px" }}>
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+              >
+                <MDBCardBody className={isSmallScreen ? 'p-2' : 'p-5'}>
+                  <h2 className="mb-4" style={{ color: theme.palette.primary.main, fontWeight: '800' }}>
+                    Wishlist
+                  </h2>
+                  <div className="d-flex justify-content-center align-items-center mb-4">
+                    <MDBInput
+                      type="text"
+                      id="form1"
+                      label="Location / Address:"
+                      wrapperClass="flex-fill"
+                      onChange={(e) => setLocationOnChange(e.target.value)}
+                      required
+                    />
+                  </div>
 
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='2'
-                  onChange={() => this.toggleItemInList(2)}
-                />
-                <div className='item-text'>Socks and Underwear</div>
-                </label>
+                  <MDBListGroup className="mb-0">
+                    {items.map((item) => (
+                      <MDBListGroupItem key={item.id} className="d-flex justify-content-between align-items-center border-start-0 border-top-0 border-end-0 border-bottom rounded-0 mb-2">
+                        <div className="d-flex align-items-center w-75">
+                          <div style={{ width: '30%' }}>
+                            <MDBCheckbox
+                              name="flexCheck"
+                              id="flexCheckChecked"
+                              className="me-3"
+                              checked={!!checkedItems[item.id]}
+                              onChange={() => toggleItemInList(item.id)}
+                              color="primary"
+                            />
+                          </div>
+                          <div style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {item.name}
+                          </div>
+                        </div>
 
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(2, e.target.value)}
-                />
-              </label>
-              </div>
+                        <div style={{ width: '15%' }}>
+                          <MDBInput
+                            label="Qty"
+                            id="quantity"
+                            type="number"
+                            disabled={!checkedItems[item.id]}
+                            value={orderItems[item.id] || ""}
+                            onChange={(e) =>
+                              updateQuantityOfItem(item.id, e.target.value)
+                            }
+                            min={0}
+                            max={10}
+                            required
+                          />
+                        </div>
+                      </MDBListGroupItem>
+                    ))}
+                  </MDBListGroup>
 
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='3'
-                  onChange={() => this.toggleItemInList(3)}
-                />
-                <div className='item-text'>Walking Shoes</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(3, e.target.value)}
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='4'
-                  onChange={() => this.toggleItemInList(4)}
-                />
-                <div className='item-text'>Pads/Tampons</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(4, e.target.value)}
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='5'
-                  onChange={() => this.toggleItemInList(5)}
-                />
-                <div className='item-text'>First Aid Kit</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(5, e.target.value)}
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='6'
-                  onChange={() => this.toggleItemInList(6)}
-                />
-                <div className='item-text'>Dental Care Kit</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(6, e.target.value)}
-                />
-              </label>
-              </div>
-              
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='7'
-                  onChange={() => this.toggleItemInList(7)}
-                />
-                <div className='item-text'>Deodorant and Soap</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(7, e.target.value)}
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='8'
-                  onChange={() => this.toggleItemInList(8)}
-                />
-                <div className='item-text'>Earplugs</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(8, e.target.value)}
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='9'
-                  onChange={() => this.toggleItemInList(9)}
-                />
-                <div className='item-text'>Face Mask, Sanitizer, Gloves</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) => this.updateQuantityOfItem(9, e.target.value)}
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='10'
-                  onChange={() => this.toggleItemInList(10)}
-                />
-                <div className='item-text'>Blanket</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(10, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='11'
-                  onChange={() => this.toggleItemInList(11)}
-                />
-                <div className='item-text'>Diapers, Wipes, Baby Clothes</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(11, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='12'
-                  onChange={() => this.toggleItemInList(12)}
-                />
-                <div className='item-text'>Baby Formula</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(12, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='13'
-                  onChange={() => this.toggleItemInList(13)}
-                />
-                <div className='item-text'>School Supplies</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(13, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='14'
-                  onChange={() => this.toggleItemInList(14)}
-                />
-                <div className='item-text'>Notepad and Pens</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(14, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='15'
-                  onChange={() => this.toggleItemInList(15)}
-                />
-                <div className='item-text'>Hat, Mittens, Scarf</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(15, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <div className='item'>
-              <label className='item-label'>
-                <input
-                  type='checkbox'
-                  className='checkbox-btn'
-                  value='16'
-                  onChange={() => this.toggleItemInList(16)}
-                />
-                <div className='item-text'>Sweater/Jacket</div>
-                </label>
-                <label>
-                <div className='quantity-label'>Quantity</div>
-                <input
-                  type='number'
-                  className='quantity'
-                  min='0'
-                  max='20'
-                  onChange={(e) =>
-                    this.updateQuantityOfItem(16, e.target.value)
-                  }
-                />
-              </label>
-              </div>
-
-              <button type='submit' id='wishlist-sbt-btn'>
-                Submit List
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    );
-  }
+                  <MDBBtn type="submit" size="lg" className="ms-2 mt-4" style={{ backgroundColor: theme.palette.primary.main }}>
+                    Add
+                  </MDBBtn>
+                </MDBCardBody>
+              </form>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    </div>
+  );
 }
+
+export default Home;

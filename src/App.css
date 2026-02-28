@@ -1,25 +1,23 @@
-h2 {
-  padding: 0 0 0 2vh;
-  color: #12806b;
+.App {
+  text-align: center;
 }
 
-.page-body {
-  margin: 0 auto;
-  width: min(2000px, calc(80% + 68px));
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-a {
-  color: #0e7c68;
-  margin: 3vh;
-  line-height: 3vh;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-a:visited {
-  color: #0e7c68;
-}
-
-@media all and (min-width: 1000px) {
-  h2 {
-    padding: 0 0 0 18vh;
-  }
+.App-link {
+  color: #61dafb;
 }
