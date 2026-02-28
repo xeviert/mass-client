@@ -51,7 +51,7 @@ const Login = () => {
   };
 
   return (
-    <Grid container component='main' sx={{ height: '100vh' }}>
+    <Grid component='main' sx={{ height: '100vh' }}>
       <Grid
         item
         xs={false}
